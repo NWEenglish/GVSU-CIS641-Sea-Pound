@@ -34,7 +34,7 @@ Following a more Agile approach. Planning to work in weekly sprints, which will 
 | Heavy Polishing Phase | Clean up code. Resolve all left over bugs. Ditch features that will only remove value. | Dec. 11th |
 
 # Anticipated Problems
-| Problem | Consequence |
-| - | - |
-| Haven't used Unity in a couple years | Will need to spend time getting reacquainted with it. |
-| Working solo | Progress is only made if I make progress. |
+| Problem | Consequence | Solution |
+| - | - | - |
+| Haven't used Unity in a couple years | Will need to spend time getting reacquainted with it. | Complete a tutorial in Unity. |
+| Working solo | Progress is only made if I make progress. | Keep features (and the project as a whole) small and easily attainable. |
