@@ -23,7 +23,8 @@ Discussion points:
 
 Goals for next week (include responsibilities)
 
-* Restart the game project and write the code without direct use of the tutorial.
-* Create the player object with movement, sprites, and audio.
-* Create the shooting mechanic with the barrel movement, sprites, and audio.
+* Nicholas English:
+	* Restart the game project and write the code without direct use of the tutorial.
+	* Create the player object with movement, sprites, and audio.
+	* Create the shooting mechanic with the barrel movement, sprites, and audio.
 
