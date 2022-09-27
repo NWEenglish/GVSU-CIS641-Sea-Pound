@@ -17,7 +17,7 @@ public class PlayerBody : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        // Create the Rigidbody
+        // Setup Rigidbody Object
         rigidbody_2D = gameObject.GetComponent<Rigidbody2D>();
 
 
