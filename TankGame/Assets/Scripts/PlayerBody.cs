@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerBody : MonoBehaviour
 {
     // Public items to share with Unity
     private const float acceleration = 5f;
@@ -10,20 +8,36 @@ public class Player : MonoBehaviour
     private const float maxSpeed = 5f;
     private const float rotationSpeed = 100f;
 
+    private Vector2 movement;
+
     private Rigidbody2D rigidbody_2D;
+    private AudioSource audioSource_Idle;
+    private AudioSource audioSource_Moving;
 
     // Start is called before the first frame update
     public void Start()
     {
         // Create the Rigidbody
         rigidbody_2D = gameObject.GetComponent<Rigidbody2D>();
+
+
+        // Setup Audio Objects
+        var audioSources = gameObject.GetComponents<AudioSource>();
+        audioSource_Idle = audioSources[0];
+        audioSource_Moving = audioSources[1];
+
+        audioSource_Moving.loop = true;
+        audioSource_Moving.Play();
+        audioSource_Moving.volume = 0.2f;
+
+        audioSource_Idle.loop = true;
+        audioSource_Idle.Play();
+        audioSource_Idle.volume = 0.1f;
     }
 
     // Updates is called at a fixed interval
     public void FixedUpdate()
     {
-        Vector2 movement;
-
         float horizontalSpeed = Input.GetAxisRaw("Horizontal") * acceleration;
         float verticalSpeed = Input.GetAxisRaw("Vertical") * acceleration;
 
@@ -56,5 +70,21 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void Update() { }
+    public void Update() 
+    {
+        float horizontalSpeed = Input.GetAxisRaw("Horizontal") * acceleration;
+        float verticalSpeed = Input.GetAxisRaw("Vertical") * acceleration;
+
+        // Update audio based on acceleration of the player
+        if (horizontalSpeed != 0 || verticalSpeed != 0)
+        {
+            audioSource_Idle.mute = true;
+            audioSource_Moving.mute = false;
+        }
+        else
+        {
+            audioSource_Idle.mute = false;
+            audioSource_Moving.mute = true;
+        }
+    }
 }
