@@ -1,25 +1,22 @@
+using Assets.Scripts;
 using UnityEngine;
 
 public class PlayerBody : MonoBehaviour
 {
-    // Public items to share with Unity
-    private const float acceleration = 5f;
-    private const float deceleration = -0.95f;
-    private const float maxSpeed = 5f;
-    private const float rotationSpeed = 100f;
-
-    private Vector2 movement;
-
     private Rigidbody2D rigidbody_2D;
     private AudioSource audioSource_Idle;
     private AudioSource audioSource_Moving;
+
+    //private PlayerHelper playerHelper;
+    private float HorizontalSpeed => Input.GetAxisRaw("Horizontal") * PlayerHelper.acceleration;
+    private float VerticalSpeed => Input.GetAxisRaw("Vertical") * PlayerHelper.acceleration;
+
 
     // Start is called before the first frame update
     public void Start()
     {
         // Setup Rigidbody Object
         rigidbody_2D = gameObject.GetComponent<Rigidbody2D>();
-
 
         // Setup Audio Objects
         var audioSources = gameObject.GetComponents<AudioSource>();
@@ -38,29 +35,21 @@ public class PlayerBody : MonoBehaviour
     // Updates is called at a fixed interval
     public void FixedUpdate()
     {
-        Move();
+        // Moves player
+        Vector2 movement = PlayerHelper.Move(ref rigidbody_2D, HorizontalSpeed, VerticalSpeed);
 
         // Rotate player
         if (movement != Vector2.zero)
         {
-            Quaternion quaternion = Quaternion.LookRotation(Vector3.forward, movement);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, quaternion, rotationSpeed);
-
-            // Sprite faces to the right, so need to account for this in movement
-            transform.rotation *= Quaternion.Euler(0f, 0f, -90f);
+            PlayerHelper.Rotate(ref rigidbody_2D, movement, -90f);
         }
     }
-
-
 
     // Update is called once per frame
     public void Update() 
     {
-        float horizontalSpeed = Input.GetAxisRaw("Horizontal") * acceleration;
-        float verticalSpeed = Input.GetAxisRaw("Vertical") * acceleration;
-
         // Update audio based on acceleration of the player
-        if (horizontalSpeed != 0 || verticalSpeed != 0)
+        if (HorizontalSpeed != 0 || VerticalSpeed != 0)
         {
             audioSource_Idle.mute = true;
             audioSource_Moving.mute = false;

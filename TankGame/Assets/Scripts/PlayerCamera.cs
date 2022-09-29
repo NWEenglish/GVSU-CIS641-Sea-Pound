@@ -1,17 +1,17 @@
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+public class PlayerCamera : MonoBehaviour
 {
     public PlayerBody player;
 
     private const float cameraHeight = 15f;
 
-    private Camera mainCamera;
+    private PlayerCamera mainCamera;
 
     // Start is called before the first frame update
     void Start()
     {
-        mainCamera = gameObject.GetComponent<Camera>();
+        mainCamera = gameObject.GetComponent<PlayerCamera>();
     }
 
     // Update is called once per frame
