@@ -38,6 +38,21 @@ public class PlayerBody : MonoBehaviour
     // Updates is called at a fixed interval
     public void FixedUpdate()
     {
+        Move();
+
+        // Rotate player
+        if (movement != Vector2.zero)
+        {
+            Quaternion quaternion = Quaternion.LookRotation(Vector3.forward, movement);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, quaternion, rotationSpeed);
+
+            // Sprite faces to the right, so need to account for this in movement
+            transform.rotation *= Quaternion.Euler(0f, 0f, -90f);
+        }
+    }
+
+    private void Move()
+    {
         float horizontalSpeed = Input.GetAxisRaw("Horizontal") * acceleration;
         float verticalSpeed = Input.GetAxisRaw("Vertical") * acceleration;
 
@@ -57,16 +72,6 @@ public class PlayerBody : MonoBehaviour
         // Decelerate the player
         movement = new Vector2(rigidbody_2D.velocity.x * deceleration, rigidbody_2D.velocity.y * deceleration);
         rigidbody_2D.AddForce(movement);
-
-        // Rotate player
-        if (movement != Vector2.zero)
-        {
-            Quaternion quaternion = Quaternion.LookRotation(Vector3.forward, movement);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, quaternion, rotationSpeed);
-
-            // Sprite faces to the right, so need to account for this in movement
-            transform.rotation *= Quaternion.Euler(0f, 0f, -90f);
-        }
     }
 
     // Update is called once per frame
