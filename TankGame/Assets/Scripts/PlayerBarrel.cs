@@ -1,4 +1,4 @@
-using Assets.Scripts;
+using Assets.Scripts.Helpers;
 using UnityEngine;
 
 public class PlayerBarrel : MonoBehaviour
@@ -30,13 +30,16 @@ public class PlayerBarrel : MonoBehaviour
         Vector2 target = new Vector2(mousePosition.x - wsp.x, mousePosition.y - wsp.y);
 
         PlayerHelper.Rotate(ref rigidbody_2D, target, 90f);
-
-        // Shoot bullet
-        float bulletTargetAngle = rigidbody_2D.rotation;
-        ShootingHelper.Shoot(bullet, barrelMuzzle.transform.position, bulletTargetAngle);
-        ShootingHelper.CleanUpBullets();
     }
 
     // Update is called once per frame
-    void Update() { }
+    void Update()
+    {
+        // Shoot bullet
+        if (Input.GetMouseButtonDown(0))
+        {
+            float bulletTargetAngle = rigidbody_2D.rotation;
+            ShootingHelper.Shoot(bullet, barrelMuzzle.transform.position, bulletTargetAngle);
+        }
+    }
 }
