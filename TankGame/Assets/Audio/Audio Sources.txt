@@ -1,1 +1,2 @@
 engine-loop-heavy-pack - https://opengameart.org/content/engine-loop-heavy-vehicletank - Nayckron
+rumble - https://opengameart.org/content/rumbleexplosion - Michel Baradari (Submitted by qubodup)

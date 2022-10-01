@@ -5,6 +5,9 @@ namespace Assets.Scripts.Helpers
 {
     public static class ShootingHelper
     {
+        public const double cooldown = 1;
+
+        private const float missileSpeed = 500f;
         private const double bulletDespawnTimer = 5;
 
         private static Dictionary<GameObject, System.DateTime> bulletsFired = new Dictionary<GameObject, System.DateTime>();
@@ -13,6 +16,8 @@ namespace Assets.Scripts.Helpers
         {
             // Create new bullet
             GameObject firedBullet = Object.Instantiate(bullet, spawnLocation, Quaternion.AngleAxis(targetAngle, Vector3.forward));
+            firedBullet.GetComponent<Rigidbody2D>().AddForce(GetForceVector(targetAngle));
+            firedBullet.GetComponent<AudioSource>().volume = 1;
             bulletsFired.Add(firedBullet, System.DateTime.Now);
         }
 
@@ -26,6 +31,18 @@ namespace Assets.Scripts.Helpers
                     Object.Destroy(bullet.Key);
                 }
             }
+        }
+
+        // Credit to GlassesGuy for the equations to compute this.
+        // https://answers.unity.com/questions/1646067/can-you-add-a-force-to-a-rigidbody-at-an-angle.html
+        private static Vector2 GetForceVector(float angle)
+        {
+            float x_component = Mathf.Cos(angle * Mathf.PI / 180) * missileSpeed;
+            float y_component = Mathf.Sin(angle * Mathf.PI / 180) * missileSpeed;
+
+            Vector2 force = new Vector2(x_component, y_component);
+
+            return force;
         }
     }
 }

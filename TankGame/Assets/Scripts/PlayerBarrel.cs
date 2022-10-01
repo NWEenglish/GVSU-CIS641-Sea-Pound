@@ -11,6 +11,8 @@ public class PlayerBarrel : MonoBehaviour
     private float HorizontalSpeed => Input.GetAxisRaw("Horizontal") * PlayerHelper.acceleration;
     private float VerticalSpeed => Input.GetAxisRaw("Vertical") * PlayerHelper.acceleration;
 
+    private System.DateTime lastShot = System.DateTime.MinValue;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,10 +38,11 @@ public class PlayerBarrel : MonoBehaviour
     void Update()
     {
         // Shoot bullet
-        if (Input.GetMouseButtonDown(0))
-        {
+        if (Input.GetMouseButtonDown(0) && System.DateTime.Now > lastShot.AddSeconds(ShootingHelper.cooldown))
+        { 
             float bulletTargetAngle = rigidbody_2D.rotation;
             ShootingHelper.Shoot(bullet, barrelMuzzle.transform.position, bulletTargetAngle);
+            lastShot = System.DateTime.Now;
         }
     }
 }
