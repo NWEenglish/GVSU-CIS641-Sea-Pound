@@ -21,7 +21,7 @@ Following a more Agile approach. Planning to work in weekly sprints, which will 
 | - | - | - |
 | Tutorial | Complete [this](https://www.gamedevelopment.blog/unity-2d-game-tutorial-2019-player-movement/) Unity tutorial. |  Sept. 25th |
 | Barebones Version | Add a tank the player can have run around in and shoot from. | Oct. 2nd |
-| Main Menu and Map | Add a main menu to load into and quit to. Create the map the player will running around in. | Oct. 9th |
+| Main Menu and Map | Add a main menu to load into and quit to. Create the map the player will be running around in. | Oct. 9th |
 | Create "A.I." | Add enemies to the map. Stationary turrets and guards who could chase. | Oct. 16th |
 | Create a HUD | HUD should contain mini-map, ammo, health, objective. | Oct. 23rd | 
 | First Game Mode | Create an offensive game mode - player will need to destroy objectives. | Oct. 30th |
