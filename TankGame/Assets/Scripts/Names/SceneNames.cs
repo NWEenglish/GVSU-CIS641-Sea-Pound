@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assets.Scripts.Names
+﻿namespace Assets.Scripts.Names
 {
     public static class SceneNames
     {
         public static string Sandbox => "Sandbox";
+        public static string Credits => "Credits";
     }
 }
