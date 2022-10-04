@@ -3,6 +3,6 @@
     public static class SceneNames
     {
         public static string Sandbox => "Sandbox";
-        public static string Credits => "Credits";
+        public static string MainMenu => "MainMenu";
     }
 }
