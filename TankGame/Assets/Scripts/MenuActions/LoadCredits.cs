@@ -19,7 +19,6 @@ namespace Assets.Scripts.MenuActions
 			Button btn = button.GetComponent<Button>();
 			btn.onClick.AddListener(TaskOnClick);
 
-			// This currently doesn't work in the build version.. need to either use static values later on, or find a solution to keep this dynamic
 			PopulateSources(Path.GetFullPath("Assets/Resources/Audio Sources.txt"), GameObject.Find("AudioCredits"));
 			PopulateSources(Path.GetFullPath("Assets/Resources/Sprite Sources.txt"), GameObject.Find("SpriteCredits"));
 
