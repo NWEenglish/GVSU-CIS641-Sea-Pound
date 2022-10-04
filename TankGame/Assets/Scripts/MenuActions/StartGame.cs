@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Assets.Scripts.Names;
 
 namespace Assets.Scripts.MenuActions
 {
-    public class QuitGame : MonoBehaviour
+    public class StartGame : MonoBehaviour
     {
 		public Button button;
 
@@ -15,11 +17,7 @@ namespace Assets.Scripts.MenuActions
 
 		private void TaskOnClick()
 		{
-			#if UNITY_EDITOR
-			UnityEditor.EditorApplication.isPlaying = false;
-			#endif
-
-			Application.Quit();
+			SceneManager.LoadScene(SceneNames.Sandbox);
 		}
 	}
 }
