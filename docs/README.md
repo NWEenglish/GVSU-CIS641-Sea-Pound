@@ -7,6 +7,8 @@ to destroy multiple objectives, while the defensive mode has the player attempt 
 The game will also feature cloud storage, which will hold all players progress and will allow the player to 
 see where they sit on the leaderboard.
 <br/>
+<br/>
+<br/>
 The game is going to be built through Unity and C# code, which will be developed in the Visual Studio IDE. 
 Cloud storage will be hosted in Firebase and accessed through a client API. Model and sound effect assets 
 will be sourced from legal, free libraries that allow our usage of them in this game, and with credit given 
