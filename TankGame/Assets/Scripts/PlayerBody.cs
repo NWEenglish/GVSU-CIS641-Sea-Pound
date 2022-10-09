@@ -1,5 +1,7 @@
 using Assets.Scripts.Helpers;
+using Assets.Scripts.Names;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBody : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class PlayerBody : MonoBehaviour
     //private PlayerHelper playerHelper;
     private float HorizontalSpeed => Input.GetAxisRaw("Horizontal") * PlayerHelper.acceleration;
     private float VerticalSpeed => Input.GetAxisRaw("Vertical") * PlayerHelper.acceleration;
+    private bool PlayerHitEsc => Input.GetKeyDown(KeyCode.Escape);
 
 
     // Start is called before the first frame update
@@ -58,6 +61,11 @@ public class PlayerBody : MonoBehaviour
         {
             audioSource_Idle.mute = false;
             audioSource_Moving.mute = true;
+        }
+
+        if (PlayerHitEsc)
+        {
+            SceneManager.LoadScene(SceneNames.MainMenu);
         }
     }
 }
