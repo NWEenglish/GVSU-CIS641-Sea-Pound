@@ -1,12 +1,11 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using Assets.Scripts.Names;
+﻿using System.IO;
 using TMPro;
-using System.IO;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.MenuActions
 {
-	public class LoadCredits : MonoBehaviour
+    public class LoadCredits : MonoBehaviour
 	{
 		public Button button;
 		public GameObject CreditsParentObject;
