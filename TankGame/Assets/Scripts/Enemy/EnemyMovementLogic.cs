@@ -10,6 +10,8 @@ namespace Assets.Scripts.Enemy
         public const float StopChaseRange = 10f;
         public const float MaxSpeed = 2f;
 
+        public const float AudioRange = 20f;
+
         public GameObject Player;
         public EntityType EnemyType;
 
@@ -65,6 +67,12 @@ namespace Assets.Scripts.Enemy
                     audioSource_Idle.mute = false;
                     audioSource_Moving.mute = true;
                 }
+            }
+
+            if (target.magnitude > AudioRange)
+            {
+                audioSource_Idle.mute = true;
+                audioSource_Moving.mute = true;
             }
         }
 

@@ -39,7 +39,7 @@ namespace Assets.Scripts.Helpers
         {
             if (enemyType == EntityType.Turret)
             {
-                return ShootingHelper.standardCooldown / 2;
+                return ShootingHelper.standardCooldown * (3/4f);
             }
             else
             {
