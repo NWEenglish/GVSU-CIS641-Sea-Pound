@@ -8,8 +8,8 @@ public class PlayerBarrel : MonoBehaviour
 
     private Rigidbody2D rigidbody_2D;
 
-    private float HorizontalSpeed => Input.GetAxisRaw("Horizontal") * PlayerHelper.acceleration;
-    private float VerticalSpeed => Input.GetAxisRaw("Vertical") * PlayerHelper.acceleration;
+    private float HorizontalSpeed => Input.GetAxisRaw("Horizontal") * MovementHelper.acceleration;
+    private float VerticalSpeed => Input.GetAxisRaw("Vertical") * MovementHelper.acceleration;
 
     private System.DateTime lastShot = System.DateTime.MinValue;
 
@@ -24,21 +24,21 @@ public class PlayerBarrel : MonoBehaviour
     private void FixedUpdate()
     {
         // Moves player
-        PlayerHelper.Move(ref rigidbody_2D, HorizontalSpeed, VerticalSpeed);
+        MovementHelper.Move(ref rigidbody_2D, HorizontalSpeed, VerticalSpeed);
 
         // Rotate barrel
         Vector3 mousePosition = Input.mousePosition;
         Vector3 wsp = Camera.main.WorldToScreenPoint(transform.position);
         Vector2 target = new Vector2(mousePosition.x - wsp.x, mousePosition.y - wsp.y);
 
-        PlayerHelper.Rotate(ref rigidbody_2D, target, 90f);
+        MovementHelper.Rotate(ref rigidbody_2D, target, 90f);
     }
 
     // Update is called once per frame
     void Update()
     {
         // Shoot bullet
-        if (Input.GetMouseButtonDown(0) && System.DateTime.Now > lastShot.AddSeconds(ShootingHelper.cooldown))
+        if (Input.GetMouseButtonDown(0) && System.DateTime.Now > lastShot.AddSeconds(ShootingHelper.Cooldown))
         { 
             float bulletTargetAngle = rigidbody_2D.rotation;
             ShootingHelper.Shoot(bullet, barrelMuzzle.transform.position, bulletTargetAngle);

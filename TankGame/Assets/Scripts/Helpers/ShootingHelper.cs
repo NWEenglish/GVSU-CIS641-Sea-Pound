@@ -5,7 +5,7 @@ namespace Assets.Scripts.Helpers
 {
     public static class ShootingHelper
     {
-        public const double cooldown = 1;
+        public const double Cooldown = 1;
 
         private const float missileSpeed = 500f;
         private const double bulletDespawnTimer = 5;
