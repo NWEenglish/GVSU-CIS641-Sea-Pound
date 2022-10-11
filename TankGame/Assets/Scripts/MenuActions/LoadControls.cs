@@ -3,51 +3,54 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadControls : MonoBehaviour
+namespace Assets.Scripts.MenuActions
 {
-    public Button button;
-    public GameObject ControlsParentObject;
-    public GameObject MainMenuParentObject;
-
-    private bool isControlsScreenVisible;
-
-    void Start()
+    public class LoadControls : MonoBehaviour
     {
-        Button btn = button.GetComponent<Button>();
-        btn.onClick.AddListener(TaskOnClick);
+        public Button button;
+        public GameObject ControlsParentObject;
+        public GameObject MainMenuParentObject;
 
-        PopulateSources(Path.GetFullPath("Assets/Resources/Controls.txt"), GameObject.Find("Controls"));
+        private bool isControlsScreenVisible;
 
-        ControlsParentObject.SetActive(false);
-    }
-
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0) && isControlsScreenVisible)
+        void Start()
         {
-            UpdateCreditScreenVisible(false);
+            Button btn = button.GetComponent<Button>();
+            btn.onClick.AddListener(TaskOnClick);
+
+            PopulateSources(Path.GetFullPath("Assets/Resources/Controls.txt"), GameObject.Find("ControlsText"));
+
+            ControlsParentObject.SetActive(false);
         }
-    }
 
-    private void TaskOnClick()
-    {
-        UpdateCreditScreenVisible(true);
-    }
-
-    private void UpdateCreditScreenVisible(bool isVisible)
-    {
-        MainMenuParentObject.SetActive(!isVisible);
-        ControlsParentObject.SetActive(isVisible);
-
-        isControlsScreenVisible = isVisible;
-    }
-
-    private void PopulateSources(string source, GameObject gameObjectToPopulate)
-    {
-        gameObjectToPopulate.GetComponent<TextMeshProUGUI>().text = "";
-        foreach (string line in File.ReadAllLines(source))
+        void Update()
         {
-            gameObjectToPopulate.GetComponent<TextMeshProUGUI>().text += $"{line}\n";
+            if (Input.GetMouseButtonDown(0) && isControlsScreenVisible)
+            {
+                UpdateCreditScreenVisible(false);
+            }
+        }
+
+        private void TaskOnClick()
+        {
+            UpdateCreditScreenVisible(true);
+        }
+
+        private void UpdateCreditScreenVisible(bool isVisible)
+        {
+            MainMenuParentObject.SetActive(!isVisible);
+            ControlsParentObject.SetActive(isVisible);
+
+            isControlsScreenVisible = isVisible;
+        }
+
+        private void PopulateSources(string source, GameObject gameObjectToPopulate)
+        {
+            gameObjectToPopulate.GetComponent<TextMeshProUGUI>().text = "";
+            foreach (string line in File.ReadAllLines(source))
+            {
+                gameObjectToPopulate.GetComponent<TextMeshProUGUI>().text += $"{line}\n";
+            }
         }
     }
 }
