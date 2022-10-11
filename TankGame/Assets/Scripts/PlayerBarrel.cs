@@ -1,4 +1,5 @@
 using Assets.Scripts.Helpers;
+using Assets.Scripts.Names;
 using UnityEngine;
 
 public class PlayerBarrel : MonoBehaviour
@@ -38,7 +39,7 @@ public class PlayerBarrel : MonoBehaviour
     void Update()
     {
         // Shoot bullet
-        if (Input.GetMouseButtonDown(0) && System.DateTime.Now > lastShot.AddSeconds(ShootingHelper.Cooldown))
+        if (Input.GetMouseButtonDown(0) && System.DateTime.Now > lastShot.AddSeconds(ShootingHelper.GetCooldown(EntityType.Player)))
         { 
             float bulletTargetAngle = rigidbody_2D.rotation;
             ShootingHelper.Shoot(bullet, barrelMuzzle.transform.position, bulletTargetAngle);

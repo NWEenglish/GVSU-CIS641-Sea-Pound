@@ -1,5 +1,6 @@
 using System;
 using Assets.Scripts.Helpers;
+using Assets.Scripts.Names;
 using UnityEngine;
 
 public class EnemyShootingLogic : MonoBehaviour
@@ -9,15 +10,19 @@ public class EnemyShootingLogic : MonoBehaviour
 
     public GameObject Player;
     public GameObject Muzzle;
+    public GameObject AltMuzzle;
     public GameObject Bullet;
+    public EntityType _EnemyType;
 
     private Rigidbody2D BarrelPivot;
-    private DateTime LastFire = DateTime.Now; 
+    private DateTime LastFire = DateTime.Now;
+    private GameObject LastShotFrom = null;
 
     // Start is called before the first frame update
     void Start()
     {
         BarrelPivot = gameObject.GetComponent<Rigidbody2D>();
+        LastShotFrom = Muzzle;
     }
 
     void FixedUpdate()
@@ -36,9 +41,19 @@ public class EnemyShootingLogic : MonoBehaviour
         // Shoot at player
         if (target.magnitude <= ShootRange)
         {
-            if (DateTime.Now > LastFire.AddSeconds(ShootingHelper.Cooldown))
+            if (DateTime.Now > LastFire.AddSeconds(ShootingHelper.GetCooldown(_EnemyType)))
             {
-                ShootingHelper.Shoot(Bullet, Muzzle.transform.position, BarrelPivot.rotation);
+                if (LastShotFrom == AltMuzzle || AltMuzzle == null)
+                {
+                    ShootingHelper.Shoot(Bullet, Muzzle.transform.position, BarrelPivot.rotation, _EnemyType != EntityType.Turret);
+                    LastShotFrom = Muzzle;
+                }
+                else
+                {
+                    ShootingHelper.Shoot(Bullet, AltMuzzle.transform.position, BarrelPivot.rotation, _EnemyType != EntityType.Turret);
+                    LastShotFrom = AltMuzzle;
+                }
+
                 LastFire = DateTime.Now;
             }
         }

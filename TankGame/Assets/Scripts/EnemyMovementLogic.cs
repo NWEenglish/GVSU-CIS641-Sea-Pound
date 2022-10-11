@@ -9,7 +9,7 @@ public class EnemyMovementLogic : MonoBehaviour
     public const float MaxSpeed = 2f;
 
     public GameObject Player;
-    public EnemyType EnemyType;
+    public EntityType EnemyType;
 
     private Rigidbody2D Body;
     private AudioSource audioSource_Idle;
@@ -41,7 +41,7 @@ public class EnemyMovementLogic : MonoBehaviour
         Vector3 currentPosition = Body.transform.position;
         Vector2 target = new Vector2(playerPosition.x - currentPosition.x, playerPosition.y - currentPosition.y);
 
-        if (EnemyType == EnemyType.Gaurd)
+        if (EnemyType == EntityType.Guard)
         {
             // Move towards player
             if (target.magnitude <= StartChaseRange && target.magnitude >= StopChaseRange)
