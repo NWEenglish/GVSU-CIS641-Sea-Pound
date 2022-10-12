@@ -4,6 +4,8 @@
     {
         Guard,
         Turret,
-        Player
+        Player,
+        Missile,
+        Beam
     }
 }
