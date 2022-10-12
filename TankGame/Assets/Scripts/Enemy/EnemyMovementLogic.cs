@@ -40,6 +40,11 @@ namespace Assets.Scripts.Enemy
 
         void FixedUpdate()
         {
+            if (Player == null)
+            {
+                return;
+            }
+
             // Target Player
             Vector3 playerPosition = Player.transform.position;
             Vector3 currentPosition = Body.transform.position;

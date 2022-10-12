@@ -17,7 +17,16 @@ public class PlayerCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 targetPosition = player.transform.transform.position;
-        mainCamera.transform.position = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z - cameraHeight);
+        if (player != null)
+        {
+            Vector3 targetPosition = player.transform.transform.position;
+            mainCamera.transform.position = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z - cameraHeight);
+        }
+
+        // Player has died
+        else
+        {
+
+        }
     }
 }
