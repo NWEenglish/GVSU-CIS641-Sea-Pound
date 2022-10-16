@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Assets.Scripts.Helpers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +21,8 @@ namespace Assets.Scripts.MenuActions
             Button btn = button.GetComponent<Button>();
             btn.onClick.AddListener(TaskOnClick);
 
-            PopulateSources(Path.GetFullPath("Assets/Resources/Controls.txt"), GameObject.Find("ControlsText"));
+            TextAsset controlsText = Resources.Load<TextAsset>("Text/Controls");
+            PopulateSources(controlsText.text, GameObject.Find("ControlsText"));
 
             ControlsParentObject.SetActive(false);
         }
@@ -47,7 +51,7 @@ namespace Assets.Scripts.MenuActions
         private void PopulateSources(string source, GameObject gameObjectToPopulate)
         {
             gameObjectToPopulate.GetComponent<TextMeshProUGUI>().text = "";
-            foreach (string line in File.ReadAllLines(source))
+            foreach (string line in SourceTextSplitter.Split(source))
             {
                 gameObjectToPopulate.GetComponent<TextMeshProUGUI>().text += $"{line}\n";
             }

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Assets.Scripts.Helpers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,8 +19,11 @@ namespace Assets.Scripts.MenuActions
 			Button btn = button.GetComponent<Button>();
 			btn.onClick.AddListener(TaskOnClick);
 
-			PopulateSources(Path.GetFullPath("Assets/Resources/Audio Sources.txt"), GameObject.Find("AudioCredits"));
-			PopulateSources(Path.GetFullPath("Assets/Resources/Sprite Sources.txt"), GameObject.Find("SpriteCredits"));
+			TextAsset audioSourcesText = Resources.Load<TextAsset>("Text/Audio Sources");
+			PopulateSources(audioSourcesText.text, GameObject.Find("AudioCredits"));
+
+			TextAsset spriteSourcesText = Resources.Load<TextAsset>("Text/Sprite Sources");
+			PopulateSources(spriteSourcesText.text, GameObject.Find("SpriteCredits"));
 
 			CreditsParentObject.SetActive(false);
 		}
@@ -48,7 +52,7 @@ namespace Assets.Scripts.MenuActions
 		private void PopulateSources(string source, GameObject gameObjectToPopulate)
 		{
 			gameObjectToPopulate.GetComponent<TextMeshProUGUI>().text = "";
-			foreach (string line in File.ReadAllLines(source))
+			foreach (string line in SourceTextSplitter.Split(source))
 			{
 				gameObjectToPopulate.GetComponent<TextMeshProUGUI>().text += $"- {line.Split(" - ")[2]}\n";
 			}
