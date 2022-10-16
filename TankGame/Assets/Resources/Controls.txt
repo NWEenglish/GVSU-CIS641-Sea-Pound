@@ -1,6 +1,0 @@
-W - Move up
-A - Move left
-S - Move down
-D - Move right
-ESC - Exit Current Game
-Left Click - Shoot Missile
