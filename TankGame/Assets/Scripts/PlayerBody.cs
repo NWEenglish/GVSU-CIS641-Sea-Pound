@@ -1,5 +1,7 @@
 using Assets.Scripts.Helpers;
+using Assets.Scripts.Names;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBody : MonoBehaviour
 {
@@ -8,8 +10,9 @@ public class PlayerBody : MonoBehaviour
     private AudioSource audioSource_Moving;
 
     //private PlayerHelper playerHelper;
-    private float HorizontalSpeed => Input.GetAxisRaw("Horizontal") * PlayerHelper.acceleration;
-    private float VerticalSpeed => Input.GetAxisRaw("Vertical") * PlayerHelper.acceleration;
+    private float HorizontalSpeed => Input.GetAxisRaw("Horizontal") * MovementHelper.acceleration;
+    private float VerticalSpeed => Input.GetAxisRaw("Vertical") * MovementHelper.acceleration;
+    private bool PlayerHitEsc => Input.GetKeyDown(KeyCode.Escape);
 
 
     // Start is called before the first frame update
@@ -36,12 +39,12 @@ public class PlayerBody : MonoBehaviour
     public void FixedUpdate()
     {
         // Moves player
-        Vector2 movement = PlayerHelper.Move(ref rigidbody_2D, HorizontalSpeed, VerticalSpeed);
+        Vector2 movement = MovementHelper.Move(ref rigidbody_2D, HorizontalSpeed, VerticalSpeed);
 
         // Rotate player
         if (movement != Vector2.zero)
         {
-            PlayerHelper.Rotate(ref rigidbody_2D, movement, -90f);
+            MovementHelper.Rotate(ref rigidbody_2D, movement, -90f);
         }
     }
 
@@ -58,6 +61,11 @@ public class PlayerBody : MonoBehaviour
         {
             audioSource_Idle.mute = false;
             audioSource_Moving.mute = true;
+        }
+
+        if (PlayerHitEsc)
+        {
+            SceneManager.LoadScene(SceneNames.MainMenu);
         }
     }
 }
