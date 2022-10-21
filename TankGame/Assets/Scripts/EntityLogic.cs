@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using Assets.Scripts.Names;
+using TMPro;
 using UnityEngine;
 
 public class EntityLogic : MonoBehaviour
 {
     public EntityType _EntityType;
     public GameObject Boundary = null;
+    public GameObject Health_HUD;
 
-    public int VisableHealth;
-    private int ActualHealth;
+    public int Health { get; private set; }
 
     private int MissileDamage = 25;
     private int BeamDamage = 15;
@@ -22,19 +23,19 @@ public class EntityLogic : MonoBehaviour
         switch (_EntityType)
         {
             case EntityType.Player:
-                ActualHealth = 200;
+                Health = 200;
                 break;
             case EntityType.Guard:
-                ActualHealth = 75;
+                Health = 75;
                 break;
             case EntityType.Turret:
-                ActualHealth = 50;
+                Health = 50;
                 break;
             default:
-                ActualHealth = 1;
+                Health = 1;
                 break;
         }
-        VisableHealth = ActualHealth;
+        Health = Health;
 
         // Setup to let items pass through walls
         if (Boundary != null && PassThroughWalls.Contains(_EntityType))
@@ -56,19 +57,19 @@ public class EntityLogic : MonoBehaviour
             if (collision.collider.name.Contains(CollidableObjectNames.Missile))
             {
                 collision.gameObject.transform.position = new Vector3(-100, -100, 0);
-                ActualHealth -= MissileDamage;
+                Health -= MissileDamage;
             }
             else if (collision.collider.name.Contains(CollidableObjectNames.Beam))
             {
                 collision.gameObject.transform.position = new Vector3(-100, -100, 0);
-                ActualHealth -= BeamDamage;
+                Health -= BeamDamage;
             }
         }
 
-        VisableHealth = ActualHealth;
+        Health = Health;
 
         // Destory object if no health
-        if (ActualHealth <= 0)
+        if (Health <= 0)
         {
             Object.Destroy(gameObject);
         }
@@ -78,6 +79,17 @@ public class EntityLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Health_HUD != null)
+        {
+            Health_HUD.GetComponent<TextMeshProUGUI>().text = $"Health: {Health}";
+            if (Health < 50)
+            {
+                Health_HUD.GetComponent<TextMeshProUGUI>().color = Color.red;
+            }
+            else
+            {
+                Health_HUD.GetComponent<TextMeshProUGUI>().color = Color.white;
+            }
+        }
     }
 }
