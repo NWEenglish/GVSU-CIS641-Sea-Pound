@@ -1,11 +1,13 @@
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Names;
+using TMPro;
 using UnityEngine;
 
 public class PlayerBarrel : MonoBehaviour
 {
     public GameObject bullet;
     public GameObject barrelMuzzle;
+    public GameObject AmmoCount_HUD;
 
     private Rigidbody2D rigidbody_2D;
     private int AmmoCount;
@@ -50,7 +52,18 @@ public class PlayerBarrel : MonoBehaviour
                 ShootingHelper.Shoot(bullet, barrelMuzzle.transform.position, bulletTargetAngle);
                 lastShot = System.DateTime.Now;
                 AmmoCount--;
+
             }
+        }
+
+        AmmoCount_HUD.GetComponent<TextMeshProUGUI>().text = $"Ammo: {AmmoCount}";
+        if (AmmoCount < 10)
+        {
+            AmmoCount_HUD.GetComponent<TextMeshProUGUI>().color = Color.red;
+        }
+        else
+        {
+            AmmoCount_HUD.GetComponent<TextMeshProUGUI>().color = Color.white;
         }
     }
 }
