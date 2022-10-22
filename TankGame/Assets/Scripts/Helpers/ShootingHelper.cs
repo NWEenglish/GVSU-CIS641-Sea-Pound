@@ -6,6 +6,7 @@ namespace Assets.Scripts.Helpers
 {
     public static class ShootingHelper
     {
+        public const int PlayerStartingAmmo = 50;
 
         private const float missileSpeed = 500f;
         private const float laserSpeed = 1000f;

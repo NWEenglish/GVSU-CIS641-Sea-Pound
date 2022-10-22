@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Assets.Scripts.Helpers;
+﻿using Assets.Scripts.Helpers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
