@@ -17,6 +17,9 @@ namespace Assets.Scripts.Helpers
 
         public static void Shoot(GameObject bullet, Vector3 spawnLocation, float targetAngle, bool isMissile = true)
         {
+            // Ensure bullet is on level -2 (level of map objects)
+            spawnLocation.z = -2;
+
             // Create new bullet
             GameObject firedBullet = Object.Instantiate(bullet, spawnLocation, Quaternion.AngleAxis(targetAngle, Vector3.forward));
             firedBullet.GetComponent<Rigidbody2D>().AddForce(GetForceVector(targetAngle, isMissile ? missileSpeed : laserSpeed));

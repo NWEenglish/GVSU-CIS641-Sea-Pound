@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using Assets.Scripts.Names;
+using Assets.Scripts.Objective;
 using TMPro;
 using UnityEngine;
 
 public class EntityLogic : MonoBehaviour
 {
-    public EntityType _EntityType;
+    public EntityType EntityType;
+    public GameModeType GameModeType;
     public GameObject Boundary = null;
     public GameObject Health_HUD;
 
@@ -14,22 +16,30 @@ public class EntityLogic : MonoBehaviour
     private int MissileDamage = 25;
     private int BeamDamage = 15;
 
-    private List<EntityType> TakesDamage = new List<EntityType>() { EntityType.Guard, EntityType.Turret, EntityType.Player };
+    private List<EntityType> TakesDamage = new List<EntityType>() { EntityType.Guard, EntityType.Turret, EntityType.Player, EntityType.ObjectiveHouse, EntityType.ObjectivePrototype, EntityType.ObjectiveEnemy };
+    private List<EntityType> Objectives = new List<EntityType>() { EntityType.ObjectiveHouse, EntityType.ObjectivePrototype, EntityType.ObjectiveEnemy };
     private List<EntityType> PassThroughWalls = new List<EntityType>() { EntityType.Beam, EntityType.Missile };
 
     // Start is called before the first frame update
     void Start()
     {
-        switch (_EntityType)
+        switch (EntityType)
         {
             case EntityType.Player:
                 Health = 200;
                 break;
             case EntityType.Guard:
+            case EntityType.ObjectiveEnemy:
                 Health = 75;
                 break;
             case EntityType.Turret:
                 Health = 50;
+                break;
+            case EntityType.ObjectiveHouse:
+                Health = 100;
+                break;
+            case EntityType.ObjectivePrototype:
+                Health = 125;
                 break;
             default:
                 Health = 1;
@@ -38,7 +48,7 @@ public class EntityLogic : MonoBehaviour
         Health = Health;
 
         // Setup to let items pass through walls
-        if (Boundary != null && PassThroughWalls.Contains(_EntityType))
+        if (Boundary != null && PassThroughWalls.Contains(EntityType))
         {
             IEnumerable<BoxCollider2D> boxColliders = Boundary.GetComponentsInChildren<BoxCollider2D>();
             BoxCollider2D currentCollider = gameObject.GetComponent<BoxCollider2D>();
@@ -52,7 +62,7 @@ public class EntityLogic : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (TakesDamage.Contains(_EntityType))
+        if (TakesDamage.Contains(EntityType))
         {
             if (collision.collider.name.Contains(CollidableObjectNames.Missile))
             {
@@ -72,6 +82,11 @@ public class EntityLogic : MonoBehaviour
         if (Health <= 0)
         {
             Object.Destroy(gameObject);
+
+            if (Objectives.Contains(EntityType))
+            {
+                GameModeObjectives.GetObjectives(GameModeType).Find(obj => obj.Type == EntityType).Completed = true;
+            }
         }
 
     }
