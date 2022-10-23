@@ -83,6 +83,11 @@ public class EntityLogic : MonoBehaviour
     {
         if (Health_HUD != null)
         {
+            if (Health < 0)
+            {
+                Health = 0;
+            }
+
             Health_HUD.GetComponent<TextMeshProUGUI>().text = $"Health: {Health}";
             if (Health < 50)
             {
@@ -97,19 +102,30 @@ public class EntityLogic : MonoBehaviour
         // Destory object if no health
         if (Health <= 0)
         {
-            Object.Destroy(gameObject);
-
+            if (EntityType == EntityType.Player)
+            {
+                PlayerStatusHelper.IsPlayerAlive = false;
+            }
+            
             if (Objectives.Contains(EntityType))
             {
                 GameModeObjectives.GetObjectives(GameModeType).Find(obj => obj.Type == EntityType).Completed = true;
+                
+                if (EntityType != EntityType.ObjectiveEnemy)
+                {
+                    gameObject.GetComponent<SpriteRenderer>().color = ColorHelper.GetFadedColor(Color.black);
+                    gameObject.transform.Find("MapIcon").GetComponent<SpriteRenderer>().color = Color.clear;
+                }
+                else
+                {
+                    Object.Destroy(gameObject);
+                }
             }
-
-            if (EntityType == EntityType.Player)
+            else
             {
-                // Set health to 0 so that no negative value is shown
-                Health = 0;
-                PlayerStatusHelper.IsPlayerAlive = false;
+                Object.Destroy(gameObject);
             }
+            //Object.Destroy(gameObject);
         }
     }
 }
