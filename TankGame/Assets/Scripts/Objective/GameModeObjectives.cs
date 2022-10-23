@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Helpers;
 using Assets.Scripts.Names;
 
 namespace Assets.Scripts.Objective
@@ -14,6 +15,7 @@ namespace Assets.Scripts.Objective
     public static class GameModeObjectives
     {
         public static bool ObjectivesComplete => CurrentObjectives.TrueForAll(obj => obj.Completed) && CurrentObjectives.Count > 0;
+        public static bool ObjectivesFailed => PlayerStatusHelper.IsPlayerAlive == false;
 
         private static List<Objective> CurrentObjectives = new List<Objective>();
 
@@ -38,7 +40,12 @@ namespace Assets.Scripts.Objective
             return CurrentObjectives;
         }
 
-        private static List<Objective> DefensiveObjectives = new List<Objective>()
+        public static void ClearObjectives()
+        {
+            CurrentObjectives = new List<Objective>();
+        }
+
+        private static List<Objective> DefensiveObjectives => new List<Objective>()
         {
             new Objective()
             {
@@ -46,7 +53,7 @@ namespace Assets.Scripts.Objective
             }
         };
 
-        private static List<Objective> OffensiveObjectives = new List<Objective>()
+        private static List<Objective> OffensiveObjectives => new List<Objective>()
         {
             new Objective()
             {
@@ -71,7 +78,7 @@ namespace Assets.Scripts.Objective
             }
         };
 
-        private static List<Objective> SandboxObjectives = new List<Objective>()
+        private static List<Objective> SandboxObjectives => new List<Objective>()
         {
             new Objective() 
             {

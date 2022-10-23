@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Assets.Scripts.Names;
+using Assets.Scripts.Objective;
 
 namespace Assets.Scripts.MenuActions
 {
@@ -17,6 +18,7 @@ namespace Assets.Scripts.MenuActions
 
 		private void TaskOnClick()
 		{
+			GameModeObjectives.ClearObjectives();
 			SceneManager.LoadScene(GetSceneName());
 		}
 

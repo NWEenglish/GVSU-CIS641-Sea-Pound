@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Assets.Scripts.Helpers;
 using Assets.Scripts.Names;
 using Assets.Scripts.Objective;
 using TMPro;
@@ -75,20 +76,6 @@ public class EntityLogic : MonoBehaviour
                 Health -= BeamDamage;
             }
         }
-
-        Health = Health;
-
-        // Destory object if no health
-        if (Health <= 0)
-        {
-            Object.Destroy(gameObject);
-
-            if (Objectives.Contains(EntityType))
-            {
-                GameModeObjectives.GetObjectives(GameModeType).Find(obj => obj.Type == EntityType).Completed = true;
-            }
-        }
-
     }
 
     // Update is called once per frame
@@ -104,6 +91,24 @@ public class EntityLogic : MonoBehaviour
             else
             {
                 Health_HUD.GetComponent<TextMeshProUGUI>().color = Color.white;
+            }
+        }
+
+        // Destory object if no health
+        if (Health <= 0)
+        {
+            Object.Destroy(gameObject);
+
+            if (Objectives.Contains(EntityType))
+            {
+                GameModeObjectives.GetObjectives(GameModeType).Find(obj => obj.Type == EntityType).Completed = true;
+            }
+
+            if (EntityType == EntityType.Player)
+            {
+                // Set health to 0 so that no negative value is shown
+                Health = 0;
+                PlayerStatusHelper.IsPlayerAlive = false;
             }
         }
     }

@@ -16,7 +16,10 @@ namespace Assets.Scripts.Objective
 
         void Update()
         {
+            // Get game mode objective settings
             var objectives = GameModeObjectives.GetObjectives(GameMode);
+            
+            // Update HUD for objectives 
             Objective_HUD.GetComponent<TextMeshProUGUI>().text = "";
 
             for (int index = 0; index < objectives.Count; index++)
