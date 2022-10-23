@@ -13,9 +13,11 @@ namespace Assets.Scripts.Objective
 
     public static class GameModeObjectives
     {
+        public static bool ObjectivesComplete => CurrentObjectives.TrueForAll(obj => obj.Completed) && CurrentObjectives.Count > 0;
+
         private static List<Objective> CurrentObjectives = new List<Objective>();
 
-        public static List<Objective> GetObjectives(GameModeType? gameModeType)
+        public static List<Objective> GetObjectives(GameModeType gameModeType)
         {
             if (CurrentObjectives.Count == 0)
             {
