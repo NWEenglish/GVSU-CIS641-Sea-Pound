@@ -29,7 +29,7 @@ namespace Assets.Scripts.MenuActions
 
         void Update()
         {
-            if (Input.GetMouseButtonDown(0) && isCreditScreenVisible)
+            if (Input.GetKeyDown(KeyCode.Escape) && isCreditScreenVisible)
             {
 				UpdateCreditScreenVisible(false);
             }

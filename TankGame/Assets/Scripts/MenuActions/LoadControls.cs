@@ -26,7 +26,7 @@ namespace Assets.Scripts.MenuActions
 
         void Update()
         {
-            if (Input.GetMouseButtonDown(0) && isControlsScreenVisible)
+            if (Input.GetKeyDown(KeyCode.Escape) && isControlsScreenVisible)
             {
                 UpdateCreditScreenVisible(false);
             }

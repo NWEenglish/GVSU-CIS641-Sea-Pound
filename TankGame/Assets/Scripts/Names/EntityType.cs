@@ -6,6 +6,9 @@
         Turret,
         Player,
         Missile,
-        Beam
+        Beam,
+        ObjectiveHouse,
+        ObjectivePrototype,
+        ObjectiveEnemy
     }
 }
