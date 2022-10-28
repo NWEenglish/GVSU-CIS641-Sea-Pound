@@ -7,7 +7,7 @@ namespace Assets.Scripts.Enemy
 {
     public class EnemyShootingLogic : MonoBehaviour
     {
-        public float AimRange = 15f;
+        public float AimRange = 30f;
         public float ShootRange = 12f;
 
         public GameObject Player;

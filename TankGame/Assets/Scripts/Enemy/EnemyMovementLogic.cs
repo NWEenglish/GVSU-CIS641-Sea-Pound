@@ -6,7 +6,7 @@ namespace Assets.Scripts.Enemy
 {
     public class EnemyMovementLogic : MonoBehaviour
     {
-        public const float StartChaseRange = 15f;
+        private float StartChaseRange = 15f;
         public const float StopChaseRange = 10f;
         public const float MaxSpeed = 2f;
 
@@ -14,6 +14,7 @@ namespace Assets.Scripts.Enemy
 
         public GameObject Player;
         public EntityType EnemyType;
+        public GameModeType GameModeType;
 
         private Rigidbody2D Body;
         private AudioSource audioSource_Idle;
@@ -22,6 +23,11 @@ namespace Assets.Scripts.Enemy
         // Start is called before the first frame update
         void Start()
         {
+            if (GameModeType == GameModeType.Defensive)
+            {
+                StartChaseRange = 1000f;
+            }
+
             Body = gameObject.GetComponent<Rigidbody2D>();
 
             // Setup Audio Objects
