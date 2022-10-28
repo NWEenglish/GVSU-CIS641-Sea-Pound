@@ -9,7 +9,7 @@ public class SpawnerLogic : MonoBehaviour
     public int respawnTimer = 30;
 
     private GameObject CurrentObject;
-    private System.DateTime LastSpawnTime;
+    private System.DateTime LastAliveTime;
     
     // Start is called before the first frame update
     void Start()
@@ -20,7 +20,11 @@ public class SpawnerLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CurrentObject == null && canRespawn && LastSpawnTime.AddSeconds(respawnTimer) >= System.DateTime.Now)
+        if (CurrentObject != null)
+        {
+            LastAliveTime = System.DateTime.Now;
+        }
+        else if (CurrentObject == null && canRespawn && LastAliveTime.AddSeconds(respawnTimer) <= System.DateTime.Now)
         {
             SpawnItem();
         }
@@ -30,6 +34,5 @@ public class SpawnerLogic : MonoBehaviour
     {
         int randomValue = (int)((Random.value * 100) % SpawnableObjects.Count);
         CurrentObject = Object.Instantiate(SpawnableObjects[randomValue], gameObject.transform);
-        LastSpawnTime = System.DateTime.Now;
     }
 }
