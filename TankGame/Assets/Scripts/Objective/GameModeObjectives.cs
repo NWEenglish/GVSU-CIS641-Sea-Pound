@@ -49,7 +49,9 @@ namespace Assets.Scripts.Objective
         {
             new Objective()
             {
-                Description = "Survive for as long as you can!"
+                Description = "Survive",
+                Hidden = false,
+                Completed = false
             }
         };
 

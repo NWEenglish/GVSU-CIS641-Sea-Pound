@@ -7,8 +7,8 @@ namespace Assets.Scripts.Player
     public class PlayerCamera : MonoBehaviour
     {
         public PlayerBody player;
+        public float cameraHeight = 15f;
 
-        private const float cameraHeight = 15f;
         private PlayerCamera mainCamera;
 
         private bool PlayerHitEsc => Input.GetKeyDown(KeyCode.Escape);
