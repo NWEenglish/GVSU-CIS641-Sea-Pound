@@ -14,9 +14,6 @@ namespace Assets.Scripts.Player
         private Rigidbody2D rigidbody_2D;
         private int AmmoCount;
 
-        private float HorizontalSpeed => Input.GetAxisRaw("Horizontal") * MovementHelper.acceleration;
-        private float VerticalSpeed => Input.GetAxisRaw("Vertical") * MovementHelper.acceleration;
-
         private System.DateTime lastShot = System.DateTime.MinValue;
 
         // Start is called before the first frame update
@@ -51,8 +48,16 @@ namespace Assets.Scripts.Player
                     ShootingHelper.Shoot(bullet, barrelMuzzle.transform.position, bulletTargetAngle);
                     lastShot = System.DateTime.Now;
                     AmmoCount--;
-
                 }
+            }
+
+            // Ammo to be added
+            AmmoCount += PlayerStatusHelper.AmmoToAdd;
+            PlayerStatusHelper.AmmoToAdd = 0;
+
+            if (AmmoCount > ShootingHelper.PlayerMaxAmmo)
+            {
+                AmmoCount = ShootingHelper.PlayerMaxAmmo;
             }
 
             AmmoCount_HUD.GetComponent<TextMeshProUGUI>().text = $"Ammo: {AmmoCount}";

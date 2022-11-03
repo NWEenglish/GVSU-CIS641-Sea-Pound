@@ -9,6 +9,6 @@
         Beam,
         ObjectiveHouse,
         ObjectivePrototype,
-        ObjectiveEnemy
+        ObjectiveEnemy,
     }
 }
