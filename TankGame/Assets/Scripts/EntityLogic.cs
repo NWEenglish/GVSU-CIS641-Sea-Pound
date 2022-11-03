@@ -125,7 +125,6 @@ public class EntityLogic : MonoBehaviour
             {
                 Object.Destroy(gameObject);
             }
-            //Object.Destroy(gameObject);
         }
     }
 }

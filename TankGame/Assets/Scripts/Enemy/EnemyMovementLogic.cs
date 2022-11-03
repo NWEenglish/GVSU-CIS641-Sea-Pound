@@ -61,7 +61,7 @@ namespace Assets.Scripts.Enemy
                 // Move towards player
                 if (target.magnitude <= StartChaseRange && target.magnitude >= StopChaseRange)
                 {
-                    // Movement Logic
+                    // Movement Logic - Move towards player
                     MovementHelper.Move(ref Body, target.x, target.y, MaxSpeed);
                     MovementHelper.Rotate(ref Body, target, -90f);
 
@@ -71,7 +71,7 @@ namespace Assets.Scripts.Enemy
                 }
                 else
                 {
-                    // Movement Logic
+                    // Movement Logic - Stop movement
                     MovementHelper.Move(ref Body, 0, 0, 3f);
 
                     // Audio Logic
@@ -84,6 +84,11 @@ namespace Assets.Scripts.Enemy
             {
                 audioSource_Idle.mute = true;
                 audioSource_Moving.mute = true;
+            }
+
+            if (MovementHelper.IsOutOfBounds(gameObject))
+            {
+                Destroy(gameObject);
             }
         }
 

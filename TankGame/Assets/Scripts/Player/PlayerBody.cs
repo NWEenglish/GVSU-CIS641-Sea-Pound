@@ -42,9 +42,11 @@ namespace Assets.Scripts.Player
             Vector2 movement = MovementHelper.Move(ref rigidbody_2D, HorizontalSpeed, VerticalSpeed);
 
             // Rotate player
-            if (movement != Vector2.zero)
+            MovementHelper.Rotate(ref rigidbody_2D, movement, -90f);
+
+            if (MovementHelper.IsOutOfBounds(gameObject))
             {
-                MovementHelper.Rotate(ref rigidbody_2D, movement, -90f);
+                gameObject.transform.position = new Vector3(0, 0, gameObject.transform.position.z);
             }
         }
 

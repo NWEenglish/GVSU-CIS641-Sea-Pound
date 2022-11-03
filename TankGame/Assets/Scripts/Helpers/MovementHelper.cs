@@ -9,6 +9,18 @@ namespace Assets.Scripts.Helpers
         public const float maxSpeed = 5f;
         public const float rotationSpeed = 100f;
 
+        private const float outOfBounds = 200f;
+
+        public static bool IsOutOfBounds(GameObject gameObject)
+        {
+            if (Mathf.Abs(gameObject.transform.position.x) > outOfBounds || Mathf.Abs(gameObject.transform.position.y) > outOfBounds)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public static Vector2 Move(ref Rigidbody2D rigidbody, float horizontalSpeed, float verticalSpeed, float? maxSpeedOverride = null)
         {
             Vector2 movement;

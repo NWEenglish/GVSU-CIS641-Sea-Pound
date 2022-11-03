@@ -31,9 +31,6 @@ namespace Assets.Scripts.Player
         // Updates is called at a fixed interval
         private void FixedUpdate()
         {
-            // Moves player
-            MovementHelper.Move(ref rigidbody_2D, HorizontalSpeed, VerticalSpeed);
-
             // Rotate barrel
             Vector3 mousePosition = Input.mousePosition;
             Vector3 wsp = Camera.main.WorldToScreenPoint(transform.position);
