@@ -5,17 +5,18 @@ using Assets.Scripts.Objective;
 using TMPro;
 using UnityEngine;
 
-public class EntityLogic : MonoBehaviour
+public class EntityCollisionLogic : MonoBehaviour
 {
     public EntityType EntityType;
     public GameModeType GameModeType;
-    public GameObject Boundary = null;
+    public GameObject CanPassThrough = null;
     public GameObject Health_HUD;
 
-    public int Health { get; private set; }
+    public int Health;
 
     private int MissileDamage = 25;
     private int BeamDamage = 15;
+    private System.DateTime LastRegenTime = System.DateTime.Now; 
 
     private List<EntityType> TakesDamage = new List<EntityType>() { EntityType.Guard, EntityType.Turret, EntityType.Player, EntityType.ObjectiveHouse, EntityType.ObjectivePrototype, EntityType.ObjectiveEnemy };
     private List<EntityType> Objectives = new List<EntityType>() { EntityType.ObjectiveHouse, EntityType.ObjectivePrototype, EntityType.ObjectiveEnemy };
@@ -24,36 +25,20 @@ public class EntityLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        switch (EntityType)
+        BoxCollider2D currentCollider = gameObject.GetComponent<BoxCollider2D>();
+
+        Health = HealthHelper.GetMaxHealth(EntityType);
+
+        // Start player with slightly less health
+        if (EntityType == EntityType.Player)
         {
-            case EntityType.Player:
-                Health = 200;
-                break;
-            case EntityType.Guard:
-            case EntityType.ObjectiveEnemy:
-                Health = 75;
-                break;
-            case EntityType.Turret:
-                Health = 50;
-                break;
-            case EntityType.ObjectiveHouse:
-                Health = 100;
-                break;
-            case EntityType.ObjectivePrototype:
-                Health = 125;
-                break;
-            default:
-                Health = 1;
-                break;
+            Health -= 20;
         }
-        Health = Health;
 
         // Setup to let items pass through walls
-        if (Boundary != null && PassThroughWalls.Contains(EntityType))
+        if (CanPassThrough != null && (PassThroughWalls.Contains(EntityType) || EntityType == EntityType.Player))
         {
-            IEnumerable<BoxCollider2D> boxColliders = Boundary.GetComponentsInChildren<BoxCollider2D>();
-            BoxCollider2D currentCollider = gameObject.GetComponent<BoxCollider2D>();
-
+            IEnumerable<BoxCollider2D> boxColliders = CanPassThrough.GetComponentsInChildren<BoxCollider2D>();
             foreach (var boxCollider in boxColliders)
             {
                 Physics2D.IgnoreCollision(boxCollider, currentCollider);
@@ -78,6 +63,25 @@ public class EntityLogic : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.name.Contains(CollidableObjectNames.HomeBase) && EntityType == EntityType.Player)
+        {
+            if (LastRegenTime.AddSeconds(0.20) < System.DateTime.Now)
+            {
+                if (Health < HealthHelper.GetMaxHealth(EntityType.Player))
+                {
+                    Health++;
+                }
+
+                PlayerStatusHelper.AmmoToAdd++;
+
+                LastRegenTime = System.DateTime.Now;
+            }
+
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -89,7 +93,7 @@ public class EntityLogic : MonoBehaviour
             }
 
             Health_HUD.GetComponent<TextMeshProUGUI>().text = $"Health: {Health}";
-            if (Health < 50)
+            if (Health < HealthHelper.GetPlayerDangerZone)
             {
                 Health_HUD.GetComponent<TextMeshProUGUI>().color = Color.red;
             }
