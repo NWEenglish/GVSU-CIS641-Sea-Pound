@@ -16,8 +16,6 @@ namespace Assets.Scripts.Player
         // Start is called before the first frame update
         public void Start()
         {
-            PlayerStatusHelper.IsPlayerAlive = true;
-
             // Setup Rigidbody Object
             rigidbody_2D = gameObject.GetComponent<Rigidbody2D>();
 

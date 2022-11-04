@@ -1,6 +1,4 @@
 using Assets.Scripts.Helpers;
-using Assets.Scripts.Names;
-using TMPro;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -9,20 +7,14 @@ namespace Assets.Scripts.Player
     {
         public GameObject bullet;
         public GameObject barrelMuzzle;
-        public GameObject AmmoCount_HUD;
 
         private Rigidbody2D rigidbody_2D;
-        private int AmmoCount;
-
-        private System.DateTime lastShot = System.DateTime.MinValue;
 
         // Start is called before the first frame update
         void Start()
         {
             // Setup Rigidbody Object
             rigidbody_2D = gameObject.GetComponent<Rigidbody2D>();
-
-            AmmoCount = ShootingHelper.PlayerStartingAmmo;
         }
 
         // Updates is called at a fixed interval
@@ -40,34 +32,10 @@ namespace Assets.Scripts.Player
         void Update()
         {
             // Shoot bullet
-            if (AmmoCount > 0)
+            if (Input.GetMouseButtonDown(0) && PlayerStatusHelper.CanShoot)
             {
-                if (Input.GetMouseButtonDown(0) && System.DateTime.Now > lastShot.AddSeconds(ShootingHelper.GetCooldown(EntityType.Player)))
-                {
-                    float bulletTargetAngle = rigidbody_2D.rotation;
-                    ShootingHelper.Shoot(bullet, barrelMuzzle.transform.position, bulletTargetAngle);
-                    lastShot = System.DateTime.Now;
-                    AmmoCount--;
-                }
-            }
-
-            // Ammo to be added
-            AmmoCount += PlayerStatusHelper.AmmoToAdd;
-            PlayerStatusHelper.AmmoToAdd = 0;
-
-            if (AmmoCount > ShootingHelper.PlayerMaxAmmo)
-            {
-                AmmoCount = ShootingHelper.PlayerMaxAmmo;
-            }
-
-            AmmoCount_HUD.GetComponent<TextMeshProUGUI>().text = $"Ammo: {AmmoCount}";
-            if (AmmoCount < 10)
-            {
-                AmmoCount_HUD.GetComponent<TextMeshProUGUI>().color = Color.red;
-            }
-            else
-            {
-                AmmoCount_HUD.GetComponent<TextMeshProUGUI>().color = Color.white;
+                float bulletTargetAngle = rigidbody_2D.rotation;
+                ShootingHelper.Shoot(bullet, barrelMuzzle.transform.position, bulletTargetAngle);
             }
         }
     }

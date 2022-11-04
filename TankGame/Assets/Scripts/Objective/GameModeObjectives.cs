@@ -19,11 +19,11 @@ namespace Assets.Scripts.Objective
 
         private static List<Objective> CurrentObjectives = new List<Objective>();
 
-        public static List<Objective> GetObjectives(GameModeType gameModeType)
+        public static List<Objective> GetObjectives()
         {
             if (CurrentObjectives.Count == 0)
             {
-                switch (gameModeType)
+                switch (GameModeHelper.GameMode)
                 {
                     case GameModeType.Defensive:
                         CurrentObjectives = DefensiveObjectives;
@@ -51,7 +51,8 @@ namespace Assets.Scripts.Objective
             {
                 Description = "Survive",
                 Hidden = false,
-                Completed = false
+                Completed = false,
+                Type = EntityType.Player
             }
         };
 

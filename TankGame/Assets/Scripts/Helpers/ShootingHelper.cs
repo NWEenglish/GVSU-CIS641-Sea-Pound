@@ -8,6 +8,7 @@ namespace Assets.Scripts.Helpers
     {
         public const int PlayerStartingAmmo = 45;
         public const int PlayerMaxAmmo = 50;
+        public const int PlayerDangerZoneAmmo = 10;
 
         private const float missileSpeed = 500f;
         private const float laserSpeed = 1000f;
