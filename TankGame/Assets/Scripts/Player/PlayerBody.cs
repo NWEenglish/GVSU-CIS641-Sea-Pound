@@ -6,10 +6,7 @@ namespace Assets.Scripts.Player
     public class PlayerBody : MonoBehaviour
     {
         private Rigidbody2D rigidbody_2D;
-        private AudioSource audioSource_Idle;
-        private AudioSource audioSource_Moving;
 
-        //private PlayerHelper playerHelper;
         private float HorizontalSpeed => Input.GetAxisRaw("Horizontal") * MovementHelper.acceleration;
         private float VerticalSpeed => Input.GetAxisRaw("Vertical") * MovementHelper.acceleration;
 
@@ -18,19 +15,6 @@ namespace Assets.Scripts.Player
         {
             // Setup Rigidbody Object
             rigidbody_2D = gameObject.GetComponent<Rigidbody2D>();
-
-            // Setup Audio Objects
-            var audioSources = gameObject.GetComponents<AudioSource>();
-            audioSource_Idle = audioSources[0];
-            audioSource_Moving = audioSources[1];
-
-            audioSource_Moving.loop = true;
-            audioSource_Moving.Play();
-            audioSource_Moving.volume = 0.2f;
-
-            audioSource_Idle.loop = true;
-            audioSource_Idle.Play();
-            audioSource_Idle.volume = 0.1f;
         }
 
         // Updates is called at a fixed interval
@@ -51,17 +35,7 @@ namespace Assets.Scripts.Player
         // Update is called once per frame
         public void Update()
         {
-            // Update audio based on acceleration of the player
-            if (HorizontalSpeed != 0 || VerticalSpeed != 0)
-            {
-                audioSource_Idle.mute = true;
-                audioSource_Moving.mute = false;
-            }
-            else
-            {
-                audioSource_Idle.mute = false;
-                audioSource_Moving.mute = true;
-            }
+            
         }
     }
 }

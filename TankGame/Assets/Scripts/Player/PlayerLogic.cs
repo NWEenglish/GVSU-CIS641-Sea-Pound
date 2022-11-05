@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Names;
 using TMPro;
@@ -14,6 +15,10 @@ namespace Assets.Scripts.Player
         private DateTime LastShotTime;
         private GameObject Ammo_HUD;
         private GameObject Health_HUD;
+        private AudioHelper AudioHelper;
+
+        private float HorizontalSpeed => Input.GetAxisRaw("Horizontal") * MovementHelper.acceleration;
+        private float VerticalSpeed => Input.GetAxisRaw("Vertical") * MovementHelper.acceleration;
 
         void Start()
         {
@@ -26,6 +31,14 @@ namespace Assets.Scripts.Player
             LastShotTime = DateTime.Now.AddSeconds(ShootingHelper.GetCooldown(EntityType.Player) * -1);
             Ammo_HUD = GameObject.Find(HUDNames.Ammo);
             Health_HUD = GameObject.Find(HUDNames.Health);
+
+            AudioSource[] audioSources = gameObject.GetComponents<AudioSource>();
+            AudioHelper = new AudioHelper(audioSources[0], audioSources[1]);
+        }
+
+        void FixedUpdate()
+        {
+            AudioHelper.PlayAudio(new Vector2(HorizontalSpeed, VerticalSpeed));
         }
 
         void Update()
