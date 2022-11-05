@@ -29,6 +29,12 @@ namespace Assets.Scripts.Helpers
             }
         }
 
+        public void MuteAudio()
+        {
+            IdleAudio.mute = true;
+            MoveAudio.mute = true;
+        }
+
         private void AudioSetup()
         {
             IdleAudio.loop = true;

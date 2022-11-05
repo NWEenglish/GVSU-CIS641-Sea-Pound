@@ -6,20 +6,18 @@ namespace Assets.Scripts.Enemy
 {
     public class EnemyMovementLogic : MonoBehaviour
     {
-        private float StartChaseRange = 15f;
-        public const float StopChaseRange = 10f;
-        public const float MaxSpeed = 2f;
-
-        public const float AudioRange = 20f;
-
         public GameObject Player;
         public EntityType EnemyType;
+        
+        private float StartChaseRange = 15f;
+        private const float StopChaseRange = 10f;
+        private const float MaxSpeed = 2f;
+        private const float AudioRange = 20f;
 
+        private Vector2 Movement;        
         private Rigidbody2D Body;
-        private AudioSource audioSource_Idle;
-        private AudioSource audioSource_Moving;
+        private AudioHelper AudioHelper;
 
-        // Start is called before the first frame update
         void Start()
         {
             if (GameModeHelper.GameMode == GameModeType.Defensive)
@@ -29,60 +27,48 @@ namespace Assets.Scripts.Enemy
 
             Body = gameObject.GetComponent<Rigidbody2D>();
 
-            // Setup Audio Objects
-            var audioSources = gameObject.GetComponents<AudioSource>();
-            audioSource_Idle = audioSources[0];
-            audioSource_Moving = audioSources[1];
-
-            audioSource_Moving.loop = true;
-            audioSource_Moving.Play();
-            audioSource_Moving.volume = 0.2f;
-
-            audioSource_Idle.loop = true;
-            audioSource_Idle.Play();
-            audioSource_Idle.volume = 0.1f;
+            AudioSource[] audioSources = gameObject.GetComponents<AudioSource>();
+            AudioHelper = new AudioHelper(audioSources[0], audioSources[1]);
         }
 
         void FixedUpdate()
         {
-            if (Player == null)
+            Vector2? target = GetTarget(Player);
+
+            if (target != null)
             {
-                return;
+                UpdateMovement(target.Value);
+                UpdateAudio(target.Value);
+            }
+        }
+
+        private Vector2? GetTarget(GameObject target)
+        {
+            if (target == null)
+            {
+                return null;
             }
 
-            // Target Player
-            Vector3 playerPosition = Player.transform.position;
+            Vector3 targetPosition = target.transform.position;
             Vector3 currentPosition = Body.transform.position;
-            Vector2 target = new Vector2(playerPosition.x - currentPosition.x, playerPosition.y - currentPosition.y);
 
+            return new Vector2(targetPosition.x - currentPosition.x, targetPosition.y - currentPosition.y);
+        }
+
+        private void UpdateMovement(Vector2 target)
+        {
             if (EnemyType == EntityType.Guard)
             {
-                // Move towards player
+                // Movement Logic - Move towards target or stop movement
                 if (target.magnitude <= StartChaseRange && target.magnitude >= StopChaseRange)
                 {
-                    // Movement Logic - Move towards player
-                    MovementHelper.Move(ref Body, target.x, target.y, MaxSpeed);
+                    Movement = MovementHelper.Move(ref Body, target.x, target.y, MaxSpeed);
                     MovementHelper.Rotate(ref Body, target, -90f);
-
-                    // Audio Logic
-                    audioSource_Idle.mute = true;
-                    audioSource_Moving.mute = false;
                 }
                 else
                 {
-                    // Movement Logic - Stop movement
-                    MovementHelper.Move(ref Body, 0, 0, 3f);
-
-                    // Audio Logic
-                    audioSource_Idle.mute = false;
-                    audioSource_Moving.mute = true;
+                    Movement = MovementHelper.Move(ref Body, 0, 0, 3f);
                 }
-            }
-
-            if (target.magnitude > AudioRange)
-            {
-                audioSource_Idle.mute = true;
-                audioSource_Moving.mute = true;
             }
 
             if (MovementHelper.IsOutOfBounds(gameObject))
@@ -91,7 +77,16 @@ namespace Assets.Scripts.Enemy
             }
         }
 
-        // Update is called once per frame
-        void Update() { }
+        private void UpdateAudio(Vector2 target)
+        {
+            if (target.magnitude > AudioRange)
+            {
+                AudioHelper.MuteAudio();
+            }
+            else
+            {
+                AudioHelper.PlayAudio(Movement);
+            }
+        }
     }
 }
