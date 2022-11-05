@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Names;
+using UnityEngine;
 
 namespace Assets.Scripts.Helpers
 {
@@ -7,7 +8,21 @@ namespace Assets.Scripts.Helpers
         private const int MissileDamage = 25;
         private const int BeamDamage = 15;
 
-        public static int GetDamage(EntityType entityType)
+        public static void CalculateHealthOnCollision(ref int health, Collision2D collision)
+        {
+            if (collision.collider.name.Contains(CollidableObjectNames.Missile))
+            {
+                collision.gameObject.transform.position = new Vector3(-100, -100, 0);
+                health -= GetDamage(EntityType.Missile);
+            }
+            else if (collision.collider.name.Contains(CollidableObjectNames.Beam))
+            {
+                collision.gameObject.transform.position = new Vector3(-100, -100, 0);
+                health -= GetDamage(EntityType.Beam);
+            }
+        }
+
+        private static int GetDamage(EntityType entityType)
         {
             switch (entityType)
             {
@@ -17,7 +32,7 @@ namespace Assets.Scripts.Helpers
                     return BeamDamage;
                 default:
                     return 0;
-            }           
+            }
         }
     }
 }

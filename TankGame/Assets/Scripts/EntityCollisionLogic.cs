@@ -36,16 +36,7 @@ public class EntityCollisionLogic : MonoBehaviour
     {
         if (TakesDamage.Contains(EntityType))
         {
-            if (collision.collider.name.Contains(CollidableObjectNames.Missile))
-            {
-                collision.gameObject.transform.position = new Vector3(-100, -100, 0);
-                EntityHealth -= DamageHelper.GetDamage(EntityType.Missile);
-            }
-            else if (collision.collider.name.Contains(CollidableObjectNames.Beam))
-            {
-                collision.gameObject.transform.position = new Vector3(-100, -100, 0);
-                EntityHealth -= DamageHelper.GetDamage(EntityType.Beam);
-            }
+            DamageHelper.CalculateHealthOnCollision(ref EntityHealth, collision);
         }
     }
 

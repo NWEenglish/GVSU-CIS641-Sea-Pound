@@ -49,16 +49,7 @@ namespace Assets.Scripts.Player
 
         void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.collider.name.Contains(CollidableObjectNames.Missile))
-            {
-                collision.gameObject.transform.position = new Vector3(-100, -100, 0);
-                Health -= DamageHelper.GetDamage(EntityType.Missile);
-            }
-            else if (collision.collider.name.Contains(CollidableObjectNames.Beam))
-            {
-                collision.gameObject.transform.position = new Vector3(-100, -100, 0);
-                Health -= DamageHelper.GetDamage(EntityType.Beam);
-            }
+            DamageHelper.CalculateHealthOnCollision(ref Health, collision);
         }
 
         void OnTriggerStay2D(Collider2D collision)
