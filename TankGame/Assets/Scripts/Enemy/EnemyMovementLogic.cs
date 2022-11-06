@@ -2,6 +2,7 @@ using Assets.Scripts.Helpers;
 using Assets.Scripts.Constants.Names;
 using Assets.Scripts.Constants.Types;
 using UnityEngine;
+using Assets.Scripts.GeneralGameLogic;
 
 namespace Assets.Scripts.Enemy
 {
@@ -21,13 +22,13 @@ namespace Assets.Scripts.Enemy
 
         void Start()
         {
-            if (GameModeHelper.GameMode == GameModeType.Defensive)
+            if (GameObject.Find(ObjectNames.GameLogic).GetComponent<GameModeSetup>().GameMode == GameModeType.Defensive)
             {
                 StartChaseRange = 1000f;
             }
 
             Body = gameObject.GetComponent<Rigidbody2D>();
-            Player = GameObject.Find(EntityNames.Player);
+            Player = GameObject.Find(ObjectNames.Player);
             Type = gameObject.GetComponent<EntityCollisionLogic>().EntityType;
 
             AudioSource[] audioSources = gameObject.GetComponents<AudioSource>();

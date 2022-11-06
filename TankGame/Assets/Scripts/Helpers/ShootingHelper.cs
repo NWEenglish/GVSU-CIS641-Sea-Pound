@@ -59,9 +59,9 @@ namespace Assets.Scripts.Helpers
             switch (type)
             {
                 case EntityType.Turret:
-                    return GameObject.Find(EntityNames.Beam);
+                    return GameObject.Find(ObjectNames.Beam);
                 default:
-                    return GameObject.Find(EntityNames.Missile);
+                    return GameObject.Find(ObjectNames.Missile);
             }
         }
 

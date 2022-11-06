@@ -1,23 +1,30 @@
-﻿using Assets.Scripts.Helpers;
+﻿using System;
+using Assets.Scripts.Constants.Names;
 using Assets.Scripts.Constants.Types;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.GeneralGameLogic
 {
     public class GameModeSetup : MonoBehaviour
     {
-        public GameModeType Type;
+        public GameModeType GameMode { get; private set; }
 
         void Start()
         {
-            GameModeHelper.GameMode = Type;
+            GameMode = GetGameModeBySceneName();
         }
 
-        void Update()
+        private GameModeType GetGameModeBySceneName()
         {
-            if (GameModeHelper.GameMode != Type)
+            switch (SceneManager.GetActiveScene().name)
             {
-                GameModeHelper.GameMode = Type;
+                case SceneNames.Defense:
+                    return GameModeType.Defensive;
+                case SceneNames.Offense:
+                    return GameModeType.Offensive;
+                default:
+                    throw new NotImplementedException($"This scene, {SceneManager.GetActiveScene().name}, does not have a game mode type defined.");
             }
         }
     }

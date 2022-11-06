@@ -25,11 +25,11 @@ namespace Assets.Scripts.Enemy
         void Start()
         {
             Type = gameObject.GetComponentInParent<EntityCollisionLogic>().EntityType;
-            Player = GameObject.Find(EntityNames.Player);
+            Player = GameObject.Find(ObjectNames.Player);
             Bullet = ShootingHelper.GetDefaultBullet(Type);
             Barrel = gameObject.GetComponent<Rigidbody2D>();
-            Muzzle = Barrel.transform.Find(EntityNames.Muzzle).gameObject;
-            AltMuzzle = Barrel.transform.Find(EntityNames.AltMuzzle)?.gameObject;
+            Muzzle = Barrel.transform.Find(ObjectNames.Muzzle).gameObject;
+            AltMuzzle = Barrel.transform.Find(ObjectNames.AltMuzzle)?.gameObject;
             LastShotFrom = Muzzle;
         }
 

@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Constants.Names;
 using Assets.Scripts.Constants.Types;
+using Assets.Scripts.GeneralGameLogic;
 using Assets.Scripts.Helpers;
+using UnityEngine;
 
 namespace Assets.Scripts.Objective
 {
@@ -23,7 +26,7 @@ namespace Assets.Scripts.Objective
         {
             if (CurrentObjectives.Count == 0)
             {
-                switch (GameModeHelper.GameMode)
+                switch (GameObject.Find(ObjectNames.GameLogic).GetComponent<GameModeSetup>().GameMode)
                 {
                     case GameModeType.Defensive:
                         CurrentObjectives = DefensiveObjectives;

@@ -48,8 +48,8 @@ namespace Assets.Scripts.Player
 
             // Set player components and game objects
             Body = gameObject.GetComponent<Rigidbody2D>();
-            Barrel = gameObject.transform.Find(EntityNames.Barrel).GetComponent<Rigidbody2D>();
-            Muzzle = Barrel.transform.Find(EntityNames.Muzzle).gameObject;
+            Barrel = gameObject.transform.Find(ObjectNames.Barrel).GetComponent<Rigidbody2D>();
+            Muzzle = Barrel.transform.Find(ObjectNames.Muzzle).gameObject;
             Bullet = ShootingHelper.GetDefaultBullet(EntityType.Player);
         }
 

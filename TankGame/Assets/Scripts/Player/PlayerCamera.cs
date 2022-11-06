@@ -16,7 +16,7 @@ namespace Assets.Scripts.Player
         // Start is called before the first frame update
         void Start()
         {
-            Player = GameObject.Find(EntityNames.Player).GetComponent<PlayerLogic>();
+            Player = GameObject.Find(ObjectNames.Player).GetComponent<PlayerLogic>();
             MainCamera = gameObject.GetComponent<PlayerCamera>();
         }
 
