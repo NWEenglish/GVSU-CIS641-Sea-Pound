@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Names;
+﻿using Assets.Scripts.Constants.Names;
+using Assets.Scripts.Constants.Types;
 using UnityEngine;
 
 namespace Assets.Scripts.Helpers

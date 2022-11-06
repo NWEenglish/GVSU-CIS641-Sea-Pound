@@ -1,6 +1,7 @@
 using System;
+using Assets.Scripts.Constants.Names;
+using Assets.Scripts.Constants.Types;
 using Assets.Scripts.Helpers;
-using Assets.Scripts.Names;
 using TMPro;
 using UnityEngine;
 

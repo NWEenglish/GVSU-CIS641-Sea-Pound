@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Names;
+﻿using Assets.Scripts.Constants.Types;
 
 namespace Assets.Scripts.Helpers
 {

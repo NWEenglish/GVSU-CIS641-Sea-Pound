@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Helpers;
-using Assets.Scripts.Names;
+using Assets.Scripts.Constants.Types;
 using UnityEngine;
 
 namespace Assets.Scripts.GeneralGameLogic

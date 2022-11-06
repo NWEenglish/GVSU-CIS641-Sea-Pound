@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Constants.Types;
 using Assets.Scripts.Helpers;
-using Assets.Scripts.Names;
 
 namespace Assets.Scripts.Objective
 {

@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Names
+﻿namespace Assets.Scripts.Constants.Names
 {
     public static class CollidableObjectNames
     {

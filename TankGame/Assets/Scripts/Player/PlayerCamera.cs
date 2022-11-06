@@ -1,4 +1,4 @@
-using Assets.Scripts.Names;
+using Assets.Scripts.Constants.Names;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
