@@ -10,20 +10,25 @@ namespace Assets.Scripts.Enemy
         public float AimRange = 30f;
         public float ShootRange = 12f;
 
-        public GameObject Player;
-        public GameObject Muzzle;
-        public GameObject AltMuzzle;
-        public GameObject Bullet;
-        public EntityType _EnemyType;
 
-        private Rigidbody2D BarrelPivot;
+        private EntityType Type;
         private DateTime LastFire = DateTime.Now;
-        private GameObject LastShotFrom = null;
+        private Rigidbody2D Barrel;
+        private GameObject LastShotFrom;
+        private GameObject Player;
+        private GameObject Bullet;
+        private GameObject Muzzle;
+        private GameObject AltMuzzle;
 
         // Start is called before the first frame update
         void Start()
         {
-            BarrelPivot = gameObject.GetComponent<Rigidbody2D>();
+            Type = gameObject.GetComponentInParent<EnemyMovementLogic>()?.Type ?? EntityType.Turret;
+            Player = GameObject.Find(EntityNames.Player);
+            Bullet = ShootingHelper.GetDefaultBullet(Type);
+            Barrel = gameObject.GetComponent<Rigidbody2D>();
+            Muzzle = Barrel.transform.Find(EntityNames.Muzzle).gameObject;
+            AltMuzzle = Barrel.transform.Find(EntityNames.AltMuzzle)?.gameObject;
             LastShotFrom = Muzzle;
         }
 
@@ -36,28 +41,28 @@ namespace Assets.Scripts.Enemy
 
             // Target Player
             Vector3 playerPosition = Player.transform.position;
-            Vector3 currentPosition = BarrelPivot.transform.position;
+            Vector3 currentPosition = Barrel.transform.position;
             Vector2 target = new Vector2(playerPosition.x - currentPosition.x, playerPosition.y - currentPosition.y);
 
             // Rotate towards player
             if (target.magnitude <= AimRange)
             {
-                MovementHelper.Rotate(ref BarrelPivot, target, 90f);
+                MovementHelper.Rotate(ref Barrel, target, 90f);
             }
 
             // Shoot at player
             if (target.magnitude <= ShootRange)
             {
-                if (DateTime.Now > LastFire.AddSeconds(ShootingHelper.GetCooldown(_EnemyType)))
+                if (DateTime.Now > LastFire.AddSeconds(ShootingHelper.GetCooldown(Type)))
                 {
                     if (LastShotFrom == AltMuzzle || AltMuzzle == null)
                     {
-                        ShootingHelper.Shoot(Bullet, Muzzle.transform.position, BarrelPivot.rotation, _EnemyType != EntityType.Turret);
+                        ShootingHelper.Shoot(Bullet, Muzzle.transform.position, Barrel.rotation, Type != EntityType.Turret);
                         LastShotFrom = Muzzle;
                     }
                     else
                     {
-                        ShootingHelper.Shoot(Bullet, AltMuzzle.transform.position, BarrelPivot.rotation, _EnemyType != EntityType.Turret);
+                        ShootingHelper.Shoot(Bullet, AltMuzzle.transform.position, Barrel.rotation, Type != EntityType.Turret);
                         LastShotFrom = AltMuzzle;
                     }
 

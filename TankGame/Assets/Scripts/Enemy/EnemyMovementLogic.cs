@@ -6,8 +6,7 @@ namespace Assets.Scripts.Enemy
 {
     public class EnemyMovementLogic : MonoBehaviour
     {
-        public GameObject Player;
-        public EntityType EnemyType;
+        public EntityType Type;
         
         private float StartChaseRange = 15f;
         private const float StopChaseRange = 10f;
@@ -16,6 +15,7 @@ namespace Assets.Scripts.Enemy
 
         private Vector2 Movement;        
         private Rigidbody2D Body;
+        private GameObject Player;
         private AudioHelper AudioHelper;
 
         void Start()
@@ -26,9 +26,10 @@ namespace Assets.Scripts.Enemy
             }
 
             Body = gameObject.GetComponent<Rigidbody2D>();
+            Player = GameObject.Find(EntityNames.Player);
 
             AudioSource[] audioSources = gameObject.GetComponents<AudioSource>();
-            AudioHelper = new AudioHelper(audioSources[0], audioSources[1]);
+            AudioHelper = new AudioHelper(audioSources[0], audioSources[1], 0.2f);
         }
 
         void FixedUpdate()
@@ -57,7 +58,7 @@ namespace Assets.Scripts.Enemy
 
         private void UpdateMovement(Vector2 target)
         {
-            if (EnemyType == EntityType.Guard)
+            if (Type == EntityType.Guard)
             {
                 // Movement Logic - Move towards target or stop movement
                 if (target.magnitude <= StartChaseRange && target.magnitude >= StopChaseRange)

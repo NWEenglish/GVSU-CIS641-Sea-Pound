@@ -53,6 +53,17 @@ namespace Assets.Scripts.Helpers
             }
         }
 
+        public static GameObject GetDefaultBullet(EntityType type)
+        {
+            switch (type)
+            {
+                case EntityType.Turret:
+                    return GameObject.Find(EntityNames.Beam);
+                default:
+                    return GameObject.Find(EntityNames.Missile);
+            }
+        }
+
         // Credit to GlassesGuy for the equations to compute this.
         // https://answers.unity.com/questions/1646067/can-you-add-a-force-to-a-rigidbody-at-an-angle.html
         private static Vector2 GetForceVector(float angle, float bulletSpeed)

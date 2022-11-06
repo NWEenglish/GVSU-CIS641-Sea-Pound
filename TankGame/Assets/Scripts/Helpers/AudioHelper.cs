@@ -7,25 +7,25 @@ namespace Assets.Scripts.Helpers
         private AudioSource IdleAudio;
         private AudioSource MoveAudio;
 
-        public AudioHelper(AudioSource idleAudio, AudioSource moveSource)
+        public AudioHelper(AudioSource idleAudio, AudioSource moveSource, float volume)
         {
             IdleAudio = idleAudio;
             MoveAudio = moveSource;
 
-            AudioSetup();
+            AudioSetup(volume);
         }
 
         public void PlayAudio(Vector2 acceleration)
         {
             if (acceleration.magnitude == 0)
             {
-                IdleAudio.mute = true;
-                MoveAudio.mute = false;
+                IdleAudio.mute = false;
+                MoveAudio.mute = true;
             }
             else
             {
-                IdleAudio.mute = false;
-                MoveAudio.mute = true;
+                IdleAudio.mute = true;
+                MoveAudio.mute = false;
             }
         }
 
@@ -35,15 +35,15 @@ namespace Assets.Scripts.Helpers
             MoveAudio.mute = true;
         }
 
-        private void AudioSetup()
+        private void AudioSetup(float volume)
         {
             IdleAudio.loop = true;
             IdleAudio.Play();
-            IdleAudio.volume = 0.4f;
+            IdleAudio.volume = volume / 2f;
 
             MoveAudio.loop = true;
             MoveAudio.Play();
-            MoveAudio.volume = 0.2f;
+            MoveAudio.volume = volume;
         }
     }
 }

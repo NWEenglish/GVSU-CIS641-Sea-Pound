@@ -16,8 +16,10 @@ namespace Assets.Scripts.Helpers
                     Health = 200;
                     break;
                 case EntityType.Guard:
-                case EntityType.ObjectiveEnemy:
                     Health = 75;
+                    break;
+                case EntityType.ObjectiveEnemy:
+                    Health = 100;
                     break;
                 case EntityType.Turret:
                     Health = 50;
