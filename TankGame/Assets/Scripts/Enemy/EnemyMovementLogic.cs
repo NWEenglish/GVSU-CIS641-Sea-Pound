@@ -7,13 +7,13 @@ namespace Assets.Scripts.Enemy
 {
     public class EnemyMovementLogic : MonoBehaviour
     {
-        public EntityType Type;
         
         private float StartChaseRange = 15f;
         private const float StopChaseRange = 10f;
         private const float MaxSpeed = 2f;
         private const float AudioRange = 20f;
 
+        private EntityType Type;
         private Vector2 Movement;        
         private Rigidbody2D Body;
         private GameObject Player;
@@ -28,6 +28,7 @@ namespace Assets.Scripts.Enemy
 
             Body = gameObject.GetComponent<Rigidbody2D>();
             Player = GameObject.Find(EntityNames.Player);
+            Type = gameObject.GetComponent<EntityCollisionLogic>().EntityType;
 
             AudioSource[] audioSources = gameObject.GetComponents<AudioSource>();
             AudioHelper = new AudioHelper(audioSources[0], audioSources[1], 0.2f);

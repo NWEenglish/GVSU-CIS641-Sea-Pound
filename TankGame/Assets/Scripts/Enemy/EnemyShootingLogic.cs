@@ -24,7 +24,7 @@ namespace Assets.Scripts.Enemy
         // Start is called before the first frame update
         void Start()
         {
-            Type = gameObject.GetComponentInParent<EnemyMovementLogic>()?.Type ?? EntityType.Turret;
+            Type = gameObject.GetComponentInParent<EntityCollisionLogic>().EntityType;
             Player = GameObject.Find(EntityNames.Player);
             Bullet = ShootingHelper.GetDefaultBullet(Type);
             Barrel = gameObject.GetComponent<Rigidbody2D>();
