@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Names;
 using TMPro;
@@ -11,40 +10,60 @@ namespace Assets.Scripts.Player
     {
         private int Ammo;
         private int Health;
+        private bool CanShoot;
         private DateTime LastRegenTime;
         private DateTime LastShotTime;
+        private AudioHelper AudioHelper;
+        
         private GameObject Ammo_HUD;
         private GameObject Health_HUD;
-        private AudioHelper AudioHelper;
+        private GameObject Muzzle;
+        private GameObject Bullet;
+
+        private Rigidbody2D Body;
+        private Rigidbody2D Barrel;
 
         private float HorizontalSpeed => Input.GetAxisRaw("Horizontal") * MovementHelper.acceleration;
         private float VerticalSpeed => Input.GetAxisRaw("Vertical") * MovementHelper.acceleration;
 
         void Start()
         {
-            // We want the player to start with slightly less health
+            // Set starting stats
             PlayerStatusHelper.IsPlayerAlive = true;
             Health = HealthHelper.GetMaxHealth(EntityType.Player) - 20;
             Ammo = ShootingHelper.PlayerStartingAmmo;
 
+            // Set starting timers
             LastRegenTime = DateTime.Now;
             LastShotTime = DateTime.Now.AddSeconds(ShootingHelper.GetCooldown(EntityType.Player) * -1);
+            
+            // Set HUDs
             Ammo_HUD = GameObject.Find(HUDNames.Ammo);
             Health_HUD = GameObject.Find(HUDNames.Health);
 
+            // Set audio sources
             AudioSource[] audioSources = gameObject.GetComponents<AudioSource>();
-            AudioHelper = new AudioHelper(audioSources[0], audioSources[1]);
+            AudioHelper = new AudioHelper(audioSources[0], audioSources[1], 0.3f);
+
+            // Set player components and game objects
+            Body = gameObject.GetComponent<Rigidbody2D>();
+            Barrel = gameObject.transform.Find(EntityNames.Barrel).GetComponent<Rigidbody2D>();
+            Muzzle = Barrel.transform.Find(EntityNames.Muzzle).gameObject;
+            Bullet = ShootingHelper.GetDefaultBullet(EntityType.Player);
         }
 
         void FixedUpdate()
         {
             AudioHelper.PlayAudio(new Vector2(HorizontalSpeed, VerticalSpeed));
+            MovePlayer();
+            AimBarrel();
         }
 
         void Update()
         {
             AmmoUpdate();
             HealthUpdate();
+            ShootUpdate();
         }
 
         void OnCollisionEnter2D(Collision2D collision)
@@ -73,20 +92,44 @@ namespace Assets.Scripts.Player
             }
         }
 
+        private void MovePlayer()
+        {
+            // Moves player
+            Vector2 movement = MovementHelper.Move(ref Body, HorizontalSpeed, VerticalSpeed);
+
+            // Rotate player
+            MovementHelper.Rotate(ref Body, movement, -90f);
+
+            if (MovementHelper.IsOutOfBounds(gameObject))
+            {
+                gameObject.transform.position = new Vector3(0, 0, gameObject.transform.position.z);
+            }
+        }
+
+        private void AimBarrel()
+        {
+            // Rotate barrel
+            Vector3 mousePosition = Input.mousePosition;
+            Vector3 wsp = Camera.main.WorldToScreenPoint(transform.position);
+            Vector2 target = new Vector2(mousePosition.x - wsp.x, mousePosition.y - wsp.y);
+
+            MovementHelper.Rotate(ref Barrel, target, 90f);
+        }
+
         private void AmmoUpdate()
         {
             // Update Ammo status
             if (Ammo > 0 && DateTime.Now > LastShotTime.AddSeconds(ShootingHelper.GetCooldown(EntityType.Player)))
             {
-                PlayerStatusHelper.CanShoot = true;
+                CanShoot = true;
             }
             else
             {
-                PlayerStatusHelper.CanShoot = false;
+                CanShoot = false;
             }
 
             // Shoot bullet
-            if (Input.GetMouseButtonDown(0) && PlayerStatusHelper.CanShoot)
+            if (Input.GetMouseButtonDown(0) && CanShoot)
             {
                 LastShotTime = DateTime.Now;
                 Ammo--;
@@ -125,6 +168,16 @@ namespace Assets.Scripts.Player
             {
                 PlayerStatusHelper.IsPlayerAlive = false;
                 Destroy(gameObject);
+            }
+        }
+
+        private void ShootUpdate()
+        {
+            // Shoot bullet
+            if (Input.GetMouseButtonDown(0) && CanShoot)
+            {
+                float bulletTargetAngle = Barrel.rotation;
+                ShootingHelper.Shoot(Bullet, Muzzle.transform.position, bulletTargetAngle);
             }
         }
     }

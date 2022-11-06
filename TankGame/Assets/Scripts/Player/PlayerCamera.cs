@@ -6,32 +6,27 @@ namespace Assets.Scripts.Player
 {
     public class PlayerCamera : MonoBehaviour
     {
-        public PlayerBody player;
         public float cameraHeight = 15f;
 
-        private PlayerCamera mainCamera;
+        private PlayerLogic Player;
+        private PlayerCamera MainCamera;
 
         private bool PlayerHitEsc => Input.GetKeyDown(KeyCode.Escape);
 
         // Start is called before the first frame update
         void Start()
         {
-            mainCamera = gameObject.GetComponent<PlayerCamera>();
+            Player = GameObject.Find(EntityNames.Player).GetComponent<PlayerLogic>();
+            MainCamera = gameObject.GetComponent<PlayerCamera>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (player != null)
+            if (Player != null)
             {
-                Vector3 targetPosition = player.transform.transform.position;
-                mainCamera.transform.position = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z - cameraHeight);
-            }
-
-            // Player has died
-            else
-            {
-
+                Vector3 targetPosition = Player.transform.transform.position;
+                MainCamera.transform.position = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z - cameraHeight);
             }
 
             if (PlayerHitEsc)
