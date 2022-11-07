@@ -1,4 +1,7 @@
-﻿using Assets.Scripts.Names;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.Constants.Names;
+using Assets.Scripts.GeneralGameLogic;
 using TMPro;
 using UnityEngine;
 
@@ -7,18 +10,19 @@ namespace Assets.Scripts.Objective
     public class ObjectiveHUDLogic : MonoBehaviour
     {
         public GameObject Objective_HUD;
-        public GameModeType GameMode;
+
+        private GameModeObjectives GameModeObjectives;
 
         void Start()
-        {
+        {            
             Objective_HUD.GetComponent<TextMeshProUGUI>().text = "";
+            GameModeObjectives = GameObject.Find(ObjectNames.GameLogic).GetComponent<GameModeSetup>().GameModeObjectives;
         }
 
         void Update()
         {
-            // Get game mode objective settings
-            var objectives = GameModeObjectives.GetObjectives(GameMode);
-            
+            List<Objective> objectives = GameModeObjectives.Objectives.ToList();
+
             // Update HUD for objectives 
             Objective_HUD.GetComponent<TextMeshProUGUI>().text = "";
 

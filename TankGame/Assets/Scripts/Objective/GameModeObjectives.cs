@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Helpers;
-using Assets.Scripts.Names;
+using System.Linq;
+using Assets.Scripts.Constants.Names;
+using Assets.Scripts.Constants.Types;
+using UnityEngine;
 
 namespace Assets.Scripts.Objective
 {
@@ -12,50 +14,60 @@ namespace Assets.Scripts.Objective
         public EntityType Type;
     }
 
-    public static class GameModeObjectives
+    public class GameModeObjectives
     {
-        public static bool ObjectivesComplete => CurrentObjectives.TrueForAll(obj => obj.Completed) && CurrentObjectives.Count > 0;
-        public static bool ObjectivesFailed => PlayerStatusHelper.IsPlayerAlive == false;
+        public bool ObjectivesComplete => Objectives.ToList().TrueForAll(obj => obj.Completed) && Objectives.ToList().Count > 0;
+        public bool ObjectivesFailed => AreObjectivesFailed();
 
-        private static List<Objective> CurrentObjectives = new List<Objective>();
+        public IEnumerable<Objective> Objectives { get; private set; }
 
-        public static List<Objective> GetObjectives(GameModeType gameModeType)
+        public GameModeObjectives(GameModeType gameMode)
         {
-            if (CurrentObjectives.Count == 0)
+            Objectives = GetObjectives(gameMode);
+        }
+
+        public void MarkObjectiveComplete(Objective objective)
+        {
+            Objective currentObjectivite = Objectives.FirstOrDefault(obj => obj.Description == objective.Description && obj.Completed == false);
+            
+            if (currentObjectivite != null)
             {
-                switch (gameModeType)
-                {
-                    case GameModeType.Defensive:
-                        CurrentObjectives = DefensiveObjectives;
-                        break;
-                    case GameModeType.Offensive:
-                        CurrentObjectives = OffensiveObjectives;
-                        break;
-                    default:
-                        CurrentObjectives = SandboxObjectives;
-                        break;
-                }
+                currentObjectivite.Completed = true;
+            }
+        }
+
+        private IEnumerable<Objective> GetObjectives(GameModeType gameMode)
+        {
+            List<Objective> objectives;
+
+            switch (gameMode)
+            {
+                case GameModeType.Defensive:
+                    objectives = DefensiveObjectives;
+                    break;
+                case GameModeType.Offensive:
+                    objectives = OffensiveObjectives;
+                    break;
+                default:
+                    objectives = SandboxObjectives;
+                    break;
             }
 
-            return CurrentObjectives;
+            return objectives;
         }
 
-        public static void ClearObjectives()
-        {
-            CurrentObjectives = new List<Objective>();
-        }
-
-        private static List<Objective> DefensiveObjectives => new List<Objective>()
+        private List<Objective> DefensiveObjectives = new List<Objective>()
         {
             new Objective()
             {
                 Description = "Survive",
                 Hidden = false,
-                Completed = false
+                Completed = false,
+                Type = EntityType.Player
             }
         };
 
-        private static List<Objective> OffensiveObjectives => new List<Objective>()
+        private List<Objective> OffensiveObjectives = new List<Objective>()
         {
             new Objective()
             {
@@ -80,12 +92,28 @@ namespace Assets.Scripts.Objective
             }
         };
 
-        private static List<Objective> SandboxObjectives => new List<Objective>()
+        private List<Objective> SandboxObjectives = new List<Objective>()
         {
             new Objective() 
             {
                 Description = "Just have fun!"
             }
         };
+
+        private bool AreObjectivesFailed()
+        {
+            bool playerAlive;
+
+            if (GameObject.Find(ObjectNames.Player) == null)
+            {
+                playerAlive = false;
+            }
+            else
+            {
+                playerAlive = true;
+            }
+
+            return !playerAlive;
+        }
     }
 }

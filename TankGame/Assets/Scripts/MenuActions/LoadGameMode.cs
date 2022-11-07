@@ -1,8 +1,9 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using Assets.Scripts.Names;
+﻿using Assets.Scripts.Constants.Names;
+using Assets.Scripts.Constants.Types;
 using Assets.Scripts.Objective;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.MenuActions
 {
@@ -18,7 +19,6 @@ namespace Assets.Scripts.MenuActions
 
 		private void TaskOnClick()
 		{
-			GameModeObjectives.ClearObjectives();
 			SceneManager.LoadScene(GetSceneName());
 		}
 

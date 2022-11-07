@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Names;
+using Assets.Scripts.Constants.Names;
+using Assets.Scripts.Constants.Types;
 using UnityEngine;
 
 namespace Assets.Scripts.Helpers
 {
     public static class ShootingHelper
     {
-        public const int PlayerStartingAmmo = 50;
+        public const int PlayerStartingAmmo = 45;
+        public const int PlayerMaxAmmo = 50;
+        public const int PlayerDangerZoneAmmo = 10;
 
         private const float missileSpeed = 500f;
         private const float laserSpeed = 1000f;
@@ -48,6 +51,17 @@ namespace Assets.Scripts.Helpers
             else
             {
                 return ShootingHelper.standardCooldown;
+            }
+        }
+
+        public static GameObject GetDefaultBullet(EntityType type)
+        {
+            switch (type)
+            {
+                case EntityType.Turret:
+                    return GameObject.Find(ObjectNames.Beam);
+                default:
+                    return GameObject.Find(ObjectNames.Missile);
             }
         }
 
