@@ -19,7 +19,6 @@ namespace Assets.Scripts.MenuActions
 
 		private void TaskOnClick()
 		{
-			GameModeObjectives.ClearObjectives();
 			SceneManager.LoadScene(GetSceneName());
 		}
 

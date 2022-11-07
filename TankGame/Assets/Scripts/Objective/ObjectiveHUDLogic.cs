@@ -1,4 +1,8 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.Constants.Names;
+using Assets.Scripts.GeneralGameLogic;
+using TMPro;
 using UnityEngine;
 
 namespace Assets.Scripts.Objective
@@ -7,16 +11,18 @@ namespace Assets.Scripts.Objective
     {
         public GameObject Objective_HUD;
 
+        private GameModeObjectives GameModeObjectives;
+
         void Start()
-        {
+        {            
             Objective_HUD.GetComponent<TextMeshProUGUI>().text = "";
+            GameModeObjectives = GameObject.Find(ObjectNames.GameLogic).GetComponent<GameModeSetup>().GameModeObjectives;
         }
 
         void Update()
         {
-            // Get game mode objective settings
-            var objectives = GameModeObjectives.GetObjectives();
-            
+            List<Objective> objectives = GameModeObjectives.Objectives.ToList();
+
             // Update HUD for objectives 
             Objective_HUD.GetComponent<TextMeshProUGUI>().text = "";
 

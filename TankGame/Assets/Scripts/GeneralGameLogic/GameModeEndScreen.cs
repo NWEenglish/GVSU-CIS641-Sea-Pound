@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Helpers;
+﻿using Assets.Scripts.Constants.Names;
+using Assets.Scripts.Helpers;
 using Assets.Scripts.Objective;
 using TMPro;
 using UnityEngine;
@@ -12,9 +13,11 @@ namespace Assets.Scripts.GeneralGameLogic
         public GameObject GameWonText;
         public GameObject GameLostText;
 
+        private GameModeObjectives GameModeObjectives;
+
         void Start()
         {
-
+            GameModeObjectives = GameObject.Find(ObjectNames.GameLogic).GetComponent<GameModeSetup>().GameModeObjectives;
         }
 
         void Update()

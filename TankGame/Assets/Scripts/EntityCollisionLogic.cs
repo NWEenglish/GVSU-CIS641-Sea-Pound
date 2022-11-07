@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Constants.Names;
 using Assets.Scripts.Constants.Types;
+using Assets.Scripts.GeneralGameLogic;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Objective;
 using UnityEngine;
@@ -11,6 +13,7 @@ public class EntityCollisionLogic : MonoBehaviour
     public GameObject CanPassThrough = null;
 
     private int EntityHealth;
+    private GameModeObjectives GameModeObjectives;
 
     private readonly List<EntityType> TakesDamage = new List<EntityType>() { EntityType.Guard, EntityType.Turret, EntityType.Player, EntityType.ObjectiveHouse, EntityType.ObjectivePrototype, EntityType.ObjectiveEnemy };
     private readonly List<EntityType> PassThroughWalls = new List<EntityType>() { EntityType.Beam, EntityType.Missile };
@@ -18,6 +21,7 @@ public class EntityCollisionLogic : MonoBehaviour
     void Start()
     {
         BoxCollider2D currentCollider = gameObject.GetComponent<BoxCollider2D>();
+        GameModeObjectives = GameObject.Find(ObjectNames.GameLogic).GetComponent<GameModeSetup>().GameModeObjectives;
 
         EntityHealth = HealthHelper.GetMaxHealth(EntityType);
 
@@ -45,11 +49,11 @@ public class EntityCollisionLogic : MonoBehaviour
         // Destory object if no health
         if (EntityHealth <= 0)
         {
-            Objective objective = GameModeObjectives.GetObjectives().FirstOrDefault(obj => obj.Type == EntityType);
+            Objective objective = GameModeObjectives.Objectives.FirstOrDefault(obj => obj.Type == EntityType);
 
             if (objective != null)
             {
-                objective.Completed = true;
+                GameModeObjectives.MarkObjectiveComplete(objective);
                 
                 if (EntityType != EntityType.ObjectiveEnemy)
                 {
