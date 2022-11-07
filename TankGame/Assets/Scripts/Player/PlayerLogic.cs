@@ -1,4 +1,3 @@
-using System;
 using Assets.Scripts.Constants.Names;
 using Assets.Scripts.Constants.Types;
 using Assets.Scripts.Helpers;
@@ -9,13 +8,9 @@ namespace Assets.Scripts.Player
 {
     public class PlayerLogic : MonoBehaviour
     {
-        private int Ammo;
-        private int Health;
-        private bool CanShoot;
-        private DateTime LastRegenTime;
-        private DateTime LastShotTime;
         private AudioHelper AudioHelper;
-        
+        private PlayerStatus PlayerStatus;
+
         private GameObject Ammo_HUD;
         private GameObject Health_HUD;
         private GameObject Muzzle;
@@ -30,13 +25,7 @@ namespace Assets.Scripts.Player
         void Start()
         {
             // Set starting stats
-            PlayerStatusHelper.IsPlayerAlive = true;
-            Health = HealthHelper.GetMaxHealth(EntityType.Player) - 20;
-            Ammo = ShootingHelper.PlayerStartingAmmo;
-
-            // Set starting timers
-            LastRegenTime = DateTime.Now;
-            LastShotTime = DateTime.Now.AddSeconds(ShootingHelper.GetCooldown(EntityType.Player) * -1);
+            PlayerStatus = new PlayerStatus();
             
             // Set HUDs
             Ammo_HUD = GameObject.Find(HUDNames.Ammo);
@@ -69,27 +58,14 @@ namespace Assets.Scripts.Player
 
         void OnCollisionEnter2D(Collision2D collision)
         {
-            DamageHelper.CalculateHealthOnCollision(ref Health, collision);
+            PlayerStatus.OnCollision(collision);
         }
 
         void OnTriggerStay2D(Collider2D collision)
         {
             if (collision.name.Contains(CollidableObjectNames.HomeBase))
             {
-                if (LastRegenTime.AddSeconds(0.20) < DateTime.Now)
-                {
-                    if (Health < HealthHelper.GetMaxHealth(EntityType.Player))
-                    {
-                        Health++;
-                    }
-
-                    if (Ammo < ShootingHelper.PlayerMaxAmmo)
-                    {
-                        Ammo++;
-                    }
-
-                    LastRegenTime = DateTime.Now;
-                }
+                PlayerStatus.OnRegen();
             }
         }
 
@@ -119,26 +95,9 @@ namespace Assets.Scripts.Player
 
         private void AmmoUpdate()
         {
-            // Update Ammo status
-            if (Ammo > 0 && DateTime.Now > LastShotTime.AddSeconds(ShootingHelper.GetCooldown(EntityType.Player)))
-            {
-                CanShoot = true;
-            }
-            else
-            {
-                CanShoot = false;
-            }
-
-            // Shoot bullet
-            if (Input.GetMouseButtonDown(0) && CanShoot)
-            {
-                LastShotTime = DateTime.Now;
-                Ammo--;
-            }
-
             // Update Ammo HUD
-            Ammo_HUD.GetComponent<TextMeshProUGUI>().text = $"Ammo: {Ammo}";
-            if (Ammo < ShootingHelper.PlayerDangerZoneAmmo)
+            Ammo_HUD.GetComponent<TextMeshProUGUI>().text = $"Ammo: {PlayerStatus.Ammo}";
+            if (PlayerStatus.Ammo < ShootingHelper.PlayerDangerZoneAmmo)
             {
                 Ammo_HUD.GetComponent<TextMeshProUGUI>().color = Color.red;
             }
@@ -150,13 +109,8 @@ namespace Assets.Scripts.Player
 
         private void HealthUpdate()
         {
-            if (Health < 0)
-            {
-                Health = 0;
-            }
-
-            Health_HUD.GetComponent<TextMeshProUGUI>().text = $"Health: {Health}";
-            if (Health < HealthHelper.GetPlayerDangerZone)
+            Health_HUD.GetComponent<TextMeshProUGUI>().text = $"Health: {PlayerStatus.Health}";
+            if (PlayerStatus.Health < HealthHelper.GetPlayerDangerZone)
             {
                 Health_HUD.GetComponent<TextMeshProUGUI>().color = Color.red;
             }
@@ -165,9 +119,8 @@ namespace Assets.Scripts.Player
                 Health_HUD.GetComponent<TextMeshProUGUI>().color = Color.white;
             }
 
-            if (Health == 0)
+            if (!PlayerStatus.IsAlive)
             {
-                PlayerStatusHelper.IsPlayerAlive = false;
                 Destroy(gameObject);
             }
         }
@@ -175,10 +128,15 @@ namespace Assets.Scripts.Player
         private void ShootUpdate()
         {
             // Shoot bullet
-            if (Input.GetMouseButtonDown(0) && CanShoot)
+            if (Input.GetMouseButtonDown(0))
             {
-                float bulletTargetAngle = Barrel.rotation;
-                ShootingHelper.Shoot(Bullet, Muzzle.transform.position, bulletTargetAngle);
+                bool wasSuccessful = PlayerStatus.RegisterShot();
+
+                if (wasSuccessful)
+                {
+                    float bulletTargetAngle = Barrel.rotation;
+                    ShootingHelper.Shoot(Bullet, Muzzle.transform.position, bulletTargetAngle);
+                }
             }
         }
     }

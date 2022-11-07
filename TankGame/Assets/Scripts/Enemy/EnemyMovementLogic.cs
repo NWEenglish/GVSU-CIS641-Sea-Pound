@@ -61,7 +61,7 @@ namespace Assets.Scripts.Enemy
 
         private void UpdateMovement(Vector2 target)
         {
-            if (Type == EntityType.Guard)
+            if (Type == EntityType.Guard || Type == EntityType.ObjectiveEnemy)
             {
                 // Movement Logic - Move towards target or stop movement
                 if (target.magnitude <= StartChaseRange && target.magnitude >= StopChaseRange)

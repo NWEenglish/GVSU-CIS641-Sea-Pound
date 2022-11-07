@@ -11,6 +11,11 @@ namespace Assets.Scripts.Helpers
 
         public static void CalculateHealthOnCollision(ref int health, Collision2D collision)
         {
+            health = CalculateHealthOnCollision(health, collision);
+        }
+
+        public static int CalculateHealthOnCollision(int health, Collision2D collision)
+        {
             if (collision.collider.name.Contains(CollidableObjectNames.Missile))
             {
                 collision.gameObject.transform.position = new Vector3(-100, -100, 0);
@@ -21,6 +26,8 @@ namespace Assets.Scripts.Helpers
                 collision.gameObject.transform.position = new Vector3(-100, -100, 0);
                 health -= GetDamage(EntityType.Beam);
             }
+
+            return health;
         }
 
         private static int GetDamage(EntityType entityType)

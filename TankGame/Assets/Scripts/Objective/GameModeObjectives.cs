@@ -3,6 +3,7 @@ using Assets.Scripts.Constants.Names;
 using Assets.Scripts.Constants.Types;
 using Assets.Scripts.GeneralGameLogic;
 using Assets.Scripts.Helpers;
+using Assets.Scripts.Player;
 using UnityEngine;
 
 namespace Assets.Scripts.Objective
@@ -18,7 +19,7 @@ namespace Assets.Scripts.Objective
     public static class GameModeObjectives
     {
         public static bool ObjectivesComplete => CurrentObjectives.TrueForAll(obj => obj.Completed) && CurrentObjectives.Count > 0;
-        public static bool ObjectivesFailed => PlayerStatusHelper.IsPlayerAlive == false;
+        public static bool ObjectivesFailed => AreObjectivesFailed();
 
         private static List<Objective> CurrentObjectives = new List<Objective>();
 
@@ -91,5 +92,21 @@ namespace Assets.Scripts.Objective
                 Description = "Just have fun!"
             }
         };
+
+        private static bool AreObjectivesFailed()
+        {
+            bool playerAlive;
+
+            if (GameObject.Find(ObjectNames.Player) == null)
+            {
+                playerAlive = false;
+            }
+            else
+            {
+                playerAlive = true;
+            }
+
+            return !playerAlive;
+        }
     }
 }
