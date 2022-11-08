@@ -9,7 +9,6 @@ namespace Assets.Scripts.Player
         public float cameraHeight = 15f;
 
         private PlayerLogic Player;
-        private PlayerCamera MainCamera;
 
         private bool PlayerHitEsc => Input.GetKeyDown(KeyCode.Escape);
 
@@ -17,7 +16,6 @@ namespace Assets.Scripts.Player
         void Start()
         {
             Player = GameObject.Find(ObjectNames.Player).GetComponent<PlayerLogic>();
-            MainCamera = gameObject.GetComponent<PlayerCamera>();
         }
 
         // Update is called once per frame
@@ -26,7 +24,7 @@ namespace Assets.Scripts.Player
             if (Player != null)
             {
                 Vector3 targetPosition = Player.transform.transform.position;
-                MainCamera.transform.position = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z - cameraHeight);
+                gameObject.transform.position = new Vector3(targetPosition.x, targetPosition.y, targetPosition.z - cameraHeight);
             }
 
             if (PlayerHitEsc)

@@ -11,7 +11,6 @@ namespace Assets.Scripts.Enemy
         public float AimRange = 30f;
         public float ShootRange = 12f;
 
-
         private EntityType Type;
         private DateTime LastFire = DateTime.Now;
         private Rigidbody2D Barrel;
