@@ -5,13 +5,8 @@ namespace Assets.Scripts
 {
     public class TimerLogic : MonoBehaviour
     {
-        private DateTime SpawnTime;
+        private DateTime SpawnTime = DateTime.Now;
         private double? LengthOfLife;
-
-        void Start()
-        {
-            SpawnTime = DateTime.Now;
-        }
 
         void Update()
         {

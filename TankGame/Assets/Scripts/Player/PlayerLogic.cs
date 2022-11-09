@@ -19,10 +19,13 @@ namespace Assets.Scripts.Player
         private Rigidbody2D Body;
         private Rigidbody2D Barrel;
 
-        private const int PlayerDangerZoneAmmo = 10;
+        private const float Acceleration = 5f;
+        private const float MaxSpeed = 5f;
+        private const int AmmoDangerZone = 10;
+        private const int HealthDangerZone = 50;
 
-        private float HorizontalSpeed => Input.GetAxisRaw("Horizontal") * MovementHelper.acceleration;
-        private float VerticalSpeed => Input.GetAxisRaw("Vertical") * MovementHelper.acceleration;
+        private float HorizontalSpeed => Input.GetAxisRaw("Horizontal") * Acceleration;
+        private float VerticalSpeed => Input.GetAxisRaw("Vertical") * Acceleration;
 
         void Start()
         {
@@ -74,7 +77,7 @@ namespace Assets.Scripts.Player
         private void MovePlayer()
         {
             // Moves player
-            Vector2 movement = MovementHelper.Move(ref Body, HorizontalSpeed, VerticalSpeed);
+            Vector2 movement = MovementHelper.Move(ref Body, HorizontalSpeed, VerticalSpeed, MaxSpeed);
 
             // Rotate player
             MovementHelper.Rotate(ref Body, movement, -90f);
@@ -99,7 +102,7 @@ namespace Assets.Scripts.Player
         {
             // Update Ammo HUD
             Ammo_HUD.GetComponent<TextMeshProUGUI>().text = $"Ammo: {PlayerStatus.Ammo}";
-            if (PlayerStatus.Ammo < PlayerDangerZoneAmmo)
+            if (PlayerStatus.Ammo < AmmoDangerZone)
             {
                 Ammo_HUD.GetComponent<TextMeshProUGUI>().color = Color.red;
             }
@@ -112,7 +115,7 @@ namespace Assets.Scripts.Player
         private void HealthUpdate()
         {
             Health_HUD.GetComponent<TextMeshProUGUI>().text = $"Health: {PlayerStatus.Health}";
-            if (PlayerStatus.Health < HealthHelper.GetPlayerDangerZone)
+            if (PlayerStatus.Health < HealthDangerZone)
             {
                 Health_HUD.GetComponent<TextMeshProUGUI>().color = Color.red;
             }

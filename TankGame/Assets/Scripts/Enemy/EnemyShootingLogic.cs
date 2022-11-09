@@ -57,12 +57,12 @@ namespace Assets.Scripts.Enemy
                 {
                     if (LastShotFrom == AltMuzzle || AltMuzzle == null)
                     {
-                        ShootingHelper.Shoot(Bullet, Muzzle.transform.position, Barrel.rotation, Type != EntityType.Turret);
+                        ShootingHelper.Shoot(Bullet, Muzzle.transform.position, Barrel.rotation);
                         LastShotFrom = Muzzle;
                     }
                     else
                     {
-                        ShootingHelper.Shoot(Bullet, AltMuzzle.transform.position, Barrel.rotation, Type != EntityType.Turret);
+                        ShootingHelper.Shoot(Bullet, AltMuzzle.transform.position, Barrel.rotation);
                         LastShotFrom = AltMuzzle;
                     }
 
