@@ -15,12 +15,15 @@ namespace Assets.Scripts.Player
         private DateTime LastShotTime;
         private DateTime LastRegenTime;
 
+        private const int PlayerStartingAmmo = 45;
+        private const int PlayerMaxAmmo = 50;
+
         public PlayerStatus()
         {
             IsAlive = true;
 
             Health = HealthHelper.GetMaxHealth(EntityType.Player) - 20;
-            Ammo = ShootingHelper.PlayerStartingAmmo;
+            Ammo = PlayerStartingAmmo;
 
             LastShotTime = DateTime.Now.AddSeconds(ShootingHelper.GetCooldown(EntityType.Player) * -1);
             LastRegenTime = DateTime.Now;
@@ -46,7 +49,7 @@ namespace Assets.Scripts.Player
                     Health++;
                 }
 
-                if (Ammo < ShootingHelper.PlayerMaxAmmo)
+                if (Ammo < PlayerMaxAmmo)
                 {
                     Ammo++;
                 }

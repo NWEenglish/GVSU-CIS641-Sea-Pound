@@ -19,6 +19,8 @@ namespace Assets.Scripts.Player
         private Rigidbody2D Body;
         private Rigidbody2D Barrel;
 
+        private const int PlayerDangerZoneAmmo = 10;
+
         private float HorizontalSpeed => Input.GetAxisRaw("Horizontal") * MovementHelper.acceleration;
         private float VerticalSpeed => Input.GetAxisRaw("Vertical") * MovementHelper.acceleration;
 
@@ -97,7 +99,7 @@ namespace Assets.Scripts.Player
         {
             // Update Ammo HUD
             Ammo_HUD.GetComponent<TextMeshProUGUI>().text = $"Ammo: {PlayerStatus.Ammo}";
-            if (PlayerStatus.Ammo < ShootingHelper.PlayerDangerZoneAmmo)
+            if (PlayerStatus.Ammo < PlayerDangerZoneAmmo)
             {
                 Ammo_HUD.GetComponent<TextMeshProUGUI>().color = Color.red;
             }
