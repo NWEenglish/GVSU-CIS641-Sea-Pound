@@ -8,8 +8,8 @@ namespace Assets.Scripts.Enemy
 {
     public class EnemyShootingLogic : MonoBehaviour
     {
-        public float AimRange = 30f;
-        public float ShootRange = 12f;
+        private const float AimRange = 30f;
+        private const float ShootRange = 12f;
 
         private EntityType Type;
         private DateTime LastFire = DateTime.Now;
@@ -70,8 +70,5 @@ namespace Assets.Scripts.Enemy
                 }
             }
         }
-
-        // Update is called once per frame
-        void Update() { }
     }
 }
