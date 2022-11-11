@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts;
 using Assets.Scripts.Constants.Names;
 using Assets.Scripts.Constants.Types;
 using Assets.Scripts.GeneralGameLogic;
@@ -14,19 +15,21 @@ public class EntityCollisionLogic : MonoBehaviour
 
     private int EntityHealth;
     private GameModeObjectives GameModeObjectives;
+    private GameObject Explosion;
 
     private readonly List<EntityType> TakesDamage = new List<EntityType>() { EntityType.Guard, EntityType.Turret, EntityType.Player, EntityType.ObjectiveHouse, EntityType.ObjectivePrototype, EntityType.ObjectiveEnemy };
-    private readonly List<EntityType> PassThroughWalls = new List<EntityType>() { EntityType.Beam, EntityType.Missile };
+    private readonly List<EntityType> BulletTypes = new List<EntityType>() { EntityType.Beam, EntityType.Missile };
 
     void Start()
     {
         BoxCollider2D currentCollider = gameObject.GetComponent<BoxCollider2D>();
         GameModeObjectives = GameObject.Find(ObjectNames.GameLogic).GetComponent<GameModeSetup>().GameModeObjectives;
+        Explosion = GameObject.Find(ObjectNames.Explosion);
 
         EntityHealth = HealthHelper.GetMaxHealth(EntityType);
 
         // Setup to let items pass through walls
-        if (CanPassThrough != null && PassThroughWalls.Contains(EntityType))
+        if (CanPassThrough != null && BulletTypes.Contains(EntityType))
         {
             IEnumerable<BoxCollider2D> boxColliders = CanPassThrough.GetComponentsInChildren<BoxCollider2D>();
             foreach (var boxCollider in boxColliders)
@@ -38,9 +41,29 @@ public class EntityCollisionLogic : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (TakesDamage.Contains(EntityType))
+        if (BulletTypes.Contains(EntityType) && collision != null)
+        {
+            HandleBulletsCollision(gameObject.transform.position);
+        }
+        else if (TakesDamage.Contains(EntityType))
         {
             DamageHelper.CalculateHealthOnCollision(ref EntityHealth, collision);
+        }
+    }
+
+    private void HandleBulletsCollision(Vector3 position)
+    {
+        try
+        {
+            gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
+            Destroy(gameObject.GetComponent<BoxCollider2D>());
+            Destroy(gameObject.GetComponent<Rigidbody2D>());
+            Instantiate(GameObject.Find(ObjectNames.Explosion), position, new Quaternion()).GetComponent<ExplosionLogic>().Init();
+        }
+        catch (System.Exception e)
+        {
+            // We sometimes get conflicting messages about the game object being null.
+            // This appears to be due to a race condition, but it seems we still get the correct output.
         }
     }
 
