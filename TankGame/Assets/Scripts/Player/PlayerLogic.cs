@@ -126,6 +126,7 @@ namespace Assets.Scripts.Player
 
             if (!PlayerStatus.IsAlive)
             {
+                Instantiate(GameObject.Find(ObjectNames.Explosion), gameObject.transform.position, new Quaternion()).GetComponent<ExplosionLogic>().Init(true);
                 Destroy(gameObject);
             }
         }

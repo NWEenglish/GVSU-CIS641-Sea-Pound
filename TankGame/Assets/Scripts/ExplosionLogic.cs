@@ -6,8 +6,8 @@ namespace Assets.Scripts
     {
         private AudioSource AudioSource;
         private Animator Animator;
-        private bool wasInit = false;
-        private bool canPlay = true;
+        private bool WasInit = false;
+        private bool CanPlay = true;
 
         private const int Speed = 4;
         private const string PlayAnimation = "Explosion";
@@ -21,22 +21,27 @@ namespace Assets.Scripts
 
         void Update()
         {
-            if (wasInit && canPlay)
+            if (WasInit && CanPlay)
             {
                 AudioSource.Play();
                 Animator.Play(PlayAnimation);
-                canPlay = false;
+                CanPlay = false;
             }
 
-            if (wasInit && !IsAnimationPlaying())
+            if (WasInit && !IsAnimationPlaying())
             {
                 Destroy(gameObject);
             }
         }
 
-        public void Init()
+        public void Init(bool objectDestroyed = false)
         {
-            wasInit = true;
+            WasInit = true;
+            
+            if (objectDestroyed)
+            {
+                gameObject.transform.localScale = new Vector3(8, 8, 1);
+            }
         }
 
         private bool IsAnimationPlaying()

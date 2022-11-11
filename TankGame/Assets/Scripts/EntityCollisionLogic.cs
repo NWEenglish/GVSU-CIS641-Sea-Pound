@@ -13,6 +13,7 @@ public class EntityCollisionLogic : MonoBehaviour
     public EntityType EntityType;
     public GameObject CanPassThrough = null;
 
+    private bool wasDeathAnimationRan = false;
     private int EntityHealth;
     private GameModeObjectives GameModeObjectives;
     private GameObject Explosion;
@@ -58,7 +59,7 @@ public class EntityCollisionLogic : MonoBehaviour
             gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
             Destroy(gameObject.GetComponent<BoxCollider2D>());
             Destroy(gameObject.GetComponent<Rigidbody2D>());
-            Instantiate(GameObject.Find(ObjectNames.Explosion), position, new Quaternion()).GetComponent<ExplosionLogic>().Init();
+            Instantiate(GameObject.Find(ObjectNames.Explosion), position, new Quaternion()).GetComponent<ExplosionLogic>().Init(false);
         }
         catch (System.Exception e)
         {
@@ -80,16 +81,23 @@ public class EntityCollisionLogic : MonoBehaviour
                 
                 if (EntityType != EntityType.ObjectiveEnemy)
                 {
-                    gameObject.GetComponent<SpriteRenderer>().color = ColorHelper.GetFadedColor(Color.black);
-                    gameObject.transform.Find("MapIcon").GetComponent<SpriteRenderer>().color = Color.clear;
+                    if (!wasDeathAnimationRan)
+                    {
+                        Instantiate(GameObject.Find(ObjectNames.Explosion), gameObject.transform.position, new Quaternion()).GetComponent<ExplosionLogic>().Init(true);
+                        gameObject.GetComponent<SpriteRenderer>().color = ColorHelper.GetFadedColor(Color.black);
+                        gameObject.transform.Find("MapIcon").GetComponent<SpriteRenderer>().color = Color.clear;
+                        wasDeathAnimationRan = true;
+                    }
                 }
                 else
                 {
+                    Instantiate(GameObject.Find(ObjectNames.Explosion), gameObject.transform.position, new Quaternion()).GetComponent<ExplosionLogic>().Init(true);
                     Destroy(gameObject);
                 }
             }
             else
             {
+                Instantiate(GameObject.Find(ObjectNames.Explosion), gameObject.transform.position, new Quaternion()).GetComponent<ExplosionLogic>().Init(true);
                 Destroy(gameObject);
             }
         }
