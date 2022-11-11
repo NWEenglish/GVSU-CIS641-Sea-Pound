@@ -9,5 +9,6 @@
         public const string Missile = "Missile";
         public const string Beam = "Beam";
         public const string GameLogic = "General Game Logic";
+        public const string Explosion = "Explosion";
     }
 }

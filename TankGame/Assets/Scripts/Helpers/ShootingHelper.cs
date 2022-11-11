@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.Constants.Names;
+﻿using Assets.Scripts.Constants.Names;
 using Assets.Scripts.Constants.Types;
 using UnityEngine;
 
@@ -7,50 +6,34 @@ namespace Assets.Scripts.Helpers
 {
     public static class ShootingHelper
     {
-        public const int PlayerStartingAmmo = 45;
-        public const int PlayerMaxAmmo = 50;
-        public const int PlayerDangerZoneAmmo = 10;
+        private const float MissileSpeed = 500f;
+        private const float LaserSpeed = 1000f;
+        private const double StandardCooldown = 1;
+        private const double BulletDespawnTimer = 5;
 
-        private const float missileSpeed = 500f;
-        private const float laserSpeed = 1000f;
-        private const double standardCooldown = 1;
-        private const double bulletDespawnTimer = 5;
-
-        private static Dictionary<GameObject, System.DateTime> bulletsFired = new Dictionary<GameObject, System.DateTime>();
-
-        public static void Shoot(GameObject bullet, Vector3 spawnLocation, float targetAngle, bool isMissile = true)
+        public static void Shoot(GameObject bullet, Vector3 spawnLocation, float targetAngle)
         {
+            float speed = bullet.name.Contains(ObjectNames.Missile) ? MissileSpeed : LaserSpeed;
+
             // Ensure bullet is on level -2 (level of map objects)
             spawnLocation.z = -2;
 
             // Create new bullet
             GameObject firedBullet = Object.Instantiate(bullet, spawnLocation, Quaternion.AngleAxis(targetAngle, Vector3.forward));
-            firedBullet.GetComponent<Rigidbody2D>().AddForce(GetForceVector(targetAngle, isMissile ? missileSpeed : laserSpeed));
+            firedBullet.GetComponent<Rigidbody2D>().AddForce(GetForceVector(targetAngle, speed));
             firedBullet.GetComponent<AudioSource>().volume = 1;
-            bulletsFired.Add(firedBullet, System.DateTime.Now);
-        }
-
-        public static void CleanUpBullets()
-        {
-            // Removes bullets after given despawn timer has elapsed
-            foreach (var bullet in bulletsFired)
-            {
-                if (System.DateTime.Now > bullet.Value.AddSeconds(bulletDespawnTimer))
-                {
-                    Object.Destroy(bullet.Key);
-                }
-            }
+            firedBullet.AddComponent<TimerLogic>().SetLengthOfLife(BulletDespawnTimer);
         }
 
         public static double GetCooldown(EntityType enemyType)
         {
             if (enemyType == EntityType.Turret)
             {
-                return ShootingHelper.standardCooldown * (3/4f);
+                return StandardCooldown * (3/4f);
             }
             else
             {
-                return ShootingHelper.standardCooldown;
+                return StandardCooldown;
             }
         }
 

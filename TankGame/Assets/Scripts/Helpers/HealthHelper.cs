@@ -4,8 +4,6 @@ namespace Assets.Scripts.Helpers
 {
     public static class HealthHelper
     {
-        public static int GetPlayerDangerZone => 50;
-
         public static int GetMaxHealth(EntityType entityType)
         {
             int Health;

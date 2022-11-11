@@ -18,12 +18,10 @@ namespace Assets.Scripts.Helpers
         {
             if (collision.collider.name.Contains(CollidableObjectNames.Missile))
             {
-                collision.gameObject.transform.position = new Vector3(-100, -100, 0);
                 health -= GetDamage(EntityType.Missile);
             }
             else if (collision.collider.name.Contains(CollidableObjectNames.Beam))
             {
-                collision.gameObject.transform.position = new Vector3(-100, -100, 0);
                 health -= GetDamage(EntityType.Beam);
             }
 

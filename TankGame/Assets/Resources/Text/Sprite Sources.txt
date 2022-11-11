@@ -5,3 +5,4 @@ madameberry_pub_domain_backgrounds - https://opengameart.org/content/public-doma
 Ground Tileset // Grass & Sand // Trees - https://opengameart.org/content/ground-tileset-grass-sand - chabull
 brushwaler437.png - https://opengameart.org/node/10593 - qubodup
 beams.png - https://opengameart.org/content/lasers-and-beams - Rawdanitsu
+explosion - https://opengameart.org/content/explosion-tilesets - elmineo
