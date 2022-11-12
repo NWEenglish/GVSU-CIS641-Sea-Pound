@@ -2,7 +2,8 @@
 {
     public static class HUDNames
     {
-        public static string Health => "Health";
-        public static string Ammo => "Ammo";
+        public const string Health = "Health";
+        public const string Ammo = "Ammo";
+        public const string Seed = "Seed";
     }
 }
