@@ -16,7 +16,6 @@ public class EntityCollisionLogic : MonoBehaviour
     private bool wasDeathAnimationRan = false;
     private int EntityHealth;
     private GameModeObjectives GameModeObjectives;
-    private GameObject Explosion;
 
     private readonly List<EntityType> TakesDamage = new List<EntityType>() { EntityType.Guard, EntityType.Turret, EntityType.Player, EntityType.ObjectiveHouse, EntityType.ObjectivePrototype, EntityType.ObjectiveEnemy };
     private readonly List<EntityType> BulletTypes = new List<EntityType>() { EntityType.Beam, EntityType.Missile };
@@ -25,8 +24,6 @@ public class EntityCollisionLogic : MonoBehaviour
     {
         BoxCollider2D currentCollider = gameObject.GetComponent<BoxCollider2D>();
         GameModeObjectives = GameObject.Find(ObjectNames.GameLogic).GetComponent<GameModeSetup>().GameModeObjectives;
-        Explosion = GameObject.Find(ObjectNames.Explosion);
-
         EntityHealth = HealthHelper.GetMaxHealth(EntityType);
 
         // Setup to let items pass through walls
