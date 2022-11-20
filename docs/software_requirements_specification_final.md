@@ -3,6 +3,12 @@
 This document defines the scope of this 2D Tank Game project. That means the following requirements describe what should and should not happen while 
 the game is being played. Listed below are both the functional and non-functional requirements, which are not yet organized by level of importance.
 
+# Software Requirements
+
+This section describes the functional and non-functional requirements for the project. Firstly, it lists some of the functional requirements for the 
+Main Menu, Player Movement, Objectives, Enemy Logic, and Health and Ammo. Following that, it lists the non-functional requirements for the Main Menu,
+Player Movement, Bullet Logic, Enemy Logic, and Health and Ammo.
+
 ## Functional Requirements
 
 ### Main Menu
