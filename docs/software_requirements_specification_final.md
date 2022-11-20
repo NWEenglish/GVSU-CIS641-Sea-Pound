@@ -105,15 +105,15 @@ Player Movement, Bullet Logic, Enemy Logic, and Health and Ammo.
 
 
 # Change management plan
-This section describes the how the system has thus far been tested, how to install the software and operate the software, and then how to report any bugs.
+This section describes how the system has thus far been tested, how to install the software and operate the software, and then how to report any bugs.
 
 The 2D Tank Game has been thoroughly tested by multiple parties. The game was sent to several individuals, each with unique experience in both software, 
 gaming, and testing. Beta testers found minimal bugs, minimal items of confusion, and minimal enhancement requests. After completing those tasks, beta testers reported
 no further causes of concern.
 
-The software can be installed by visiting the repository and downloading the TankGame.zip. From there, unzip the file and place the in your desired folder.
+The software can be installed by visiting the repository and downloading TankGame.zip. From there, unzip the file and place it in your desired folder.
 The game can then be launched by opening that folder and running the executable file. While running the program, the user can open the Controls section
-in the Main Menu and see how to operate the player's tank while in game.
+in the Main Menu and see how to operate the player's tank while in the game.
 
 All bugs and enhancement requests should be submitted on the repository in the form of an issue with the "Bug" or 'Enhancement" tag. The dev team will
-immediatly be notified and will notify the user when the issue is resolved.
+immediately be notified and will notify the user when the issue is resolved.
