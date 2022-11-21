@@ -9,7 +9,7 @@ namespace Assets.Scripts.Helpers
         private const float MissileSpeed = 500f;
         private const float LaserSpeed = 1000f;
         private const double StandardCooldown = 1;
-        private const double BulletDespawnTimer = 5;
+        private const double BulletDespawnTimer = 3;
 
         public static void Shoot(GameObject bullet, Vector3 spawnLocation, float targetAngle)
         {
