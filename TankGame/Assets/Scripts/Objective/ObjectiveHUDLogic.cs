@@ -28,21 +28,14 @@ namespace Assets.Scripts.Objective
 
             for (int index = 0; index < objectives.Count; index++)
             {
-                if (objectives[index].Hidden == false)
-                {
-                    string text = $"\u2022<indent=1em>{objectives[index].Description}</indent>";
+                string text = $"\u2022<indent=1em>{objectives[index].Description}</indent>";
                     
-                    if (objectives[index].Completed)
-                    {
-                        text = $"<color=green><alpha=#CC>{text}</color>";
-                    }
-
-                    Objective_HUD.GetComponent<TextMeshProUGUI>().text += $"{text}\n\n";
-                }
-                else
+                if (objectives[index].Completed)
                 {
-                    Objective_HUD.GetComponent<TextMeshProUGUI>().text += "";
+                    text = $"<color=green><alpha=#CC>{text}</color>";
                 }
+
+                Objective_HUD.GetComponent<TextMeshProUGUI>().text += $"{text}\n\n";
             }
         }
 

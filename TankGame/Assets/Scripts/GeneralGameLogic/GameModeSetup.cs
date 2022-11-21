@@ -18,7 +18,7 @@ namespace Assets.Scripts.GeneralGameLogic
             GameMode = GetGameModeBySceneName();
             GameModeObjectives = new GameModeObjectives(GameMode);
 
-            int seed = (int)(new System.Random().NextDouble() * 1000000000);
+            int seed = 421114010; //(int)(new System.Random().NextDouble() * 1000000000);
             UnityEngine.Random.InitState(seed);
 
             GameObject.Find(HUDNames.Seed).GetComponent<TextMeshProUGUI>().text = $"Seed: {seed}";

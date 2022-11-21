@@ -612,12 +612,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- Prof. Fredericks
-
-    - GVSU
-
-
-    - And my wonderful testers:'
+  m_text: "- Prof. Fredericks\n- GVSU\n\n- And my wonderful testers:\n  - Denver
+    DeBoer\n  - Chris English\n  - Mike English\n  - Kevin Jaklic"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

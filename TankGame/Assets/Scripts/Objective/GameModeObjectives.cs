@@ -9,7 +9,6 @@ namespace Assets.Scripts.Objective
     public class Objective
     {
         public string Description;
-        public bool Hidden = false;
         public bool Completed = false;
         public EntityType Type;
     }
@@ -61,7 +60,6 @@ namespace Assets.Scripts.Objective
             new Objective()
             {
                 Description = "Survive",
-                Hidden = false,
                 Completed = false,
                 Type = EntityType.Player
             }
@@ -72,21 +70,18 @@ namespace Assets.Scripts.Objective
             new Objective()
             {
                 Description = "Eliminate the target",
-                Hidden = false,
                 Completed = false,
                 Type = EntityType.ObjectiveEnemy
             },
             new Objective()
             {
                 Description = "Destroy the building",
-                Hidden = false,
                 Completed = false,
                 Type = EntityType.ObjectiveHouse
             },
             new Objective()
             {
                 Description = "Destroy the prototype turret",
-                Hidden = false,
                 Completed = false,
                 Type = EntityType.ObjectivePrototype
             }
