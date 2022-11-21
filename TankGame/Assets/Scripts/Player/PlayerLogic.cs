@@ -92,7 +92,7 @@ namespace Assets.Scripts.Player
         {
             // Rotate barrel
             Vector3 mousePosition = Input.mousePosition;
-            Vector3 wsp = Camera.main.WorldToScreenPoint(transform.position);
+            Vector3 wsp = Camera.main.WorldToScreenPoint(Barrel.transform.position);
             Vector2 target = new Vector2(mousePosition.x - wsp.x, mousePosition.y - wsp.y);
 
             MovementHelper.Rotate(ref Barrel, target, 90f);
