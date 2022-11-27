@@ -23,38 +23,38 @@ Player Movement, Bullet Logic, Enemy Logic, and Health and Ammo.
 ### Player Movement
 | ID | Requirement |
 | :-------------: | :----------: |
-| FR1 | The system shall add a force to the right when the player presses the “D” key. |
-| FR2 | The system shall add a force to the left when the player presses the “A” key. |
-| FR3 | The system shall add a force upwards when the player presses the “W” key. |
-| FR4 | The system shall add a force downwards when the player presses the “S” key. |
-| FR5 | The system shall rotate the player’s tank barrel counterclockwise when the player moves their mouse to relative north of the player’s tank barrel. |
+| FR6 | The system shall add a force to the right when the player presses the “D” key. |
+| FR7 | The system shall add a force to the left when the player presses the “A” key. |
+| FR8 | The system shall add a force upwards when the player presses the “W” key. |
+| FR9 | The system shall add a force downwards when the player presses the “S” key. |
+| FR10 | The system shall rotate the player’s tank barrel counterclockwise when the player moves their mouse to relative north of the player’s tank barrel. |
 
 ### Objectives
 | ID | Requirement |
 | :-------------: | :----------: |
-| FR1 | The system shall load the Defensive objectives when the game loads the Defense game mode. |
-| FR2 | The system shall load the Offensive objectives when the game loads the Offensive game mode. |
-| FR3 | The system shall mark the game mode objectives as failed if the player is destroyed. |
-| FR4 | The system shall load a fresh objectives list when a game mode is loaded. |
-| FR5 | The system shall mark the "Destroy the building" objective as completed when the building is destroyed in the Offensive game mode. |
+| FR11 | The system shall load the Defensive objectives when the game loads the Defense game mode. |
+| FR12 | The system shall load the Offensive objectives when the game loads the Offensive game mode. |
+| FR13 | The system shall mark the game mode objectives as failed if the player is destroyed. |
+| FR14 | The system shall load a fresh objectives list when a game mode is loaded. |
+| FR15 | The system shall mark the "Destroy the building" objective as completed when the building is destroyed in the Offensive game mode. |
 
 ### Enemy Logic
 | ID | Requirement |
 | :-------------: | :----------: |
-| FR1 | The system shall have guard enemies that have a larger range for the player to be within to start chasing the player in the Defensive game mode. |
-| FR2 | The system shall have guard enemies that must wait for the player to be within chasing range to start chasing the player in the Offensive game mode. |
-| FR3 | The system shall have turret enemies that cannot chase after the player. |
-| FR4 | The system shall have all enemies start aiming at the player when the player is within aiming range. |
-| FR5 | The system shall have all enemies start shooting at the player when the player is within shooting range. |
+| FR16 | The system shall have guard enemies that have a larger range for the player to be within to start chasing the player in the Defensive game mode. |
+| FR17 | The system shall have guard enemies that must wait for the player to be within chasing range to start chasing the player in the Offensive game mode. |
+| FR18 | The system shall have turret enemies that cannot chase after the player. |
+| FR19 | The system shall have all enemies start aiming at the player when the player is within aiming range. |
+| FR20 | The system shall have all enemies start shooting at the player when the player is within shooting range. |
 
 ### Health and Ammo
 | ID | Requirement |
 | :-------------: | :----------: |
-| FR1 | The system shall have health regenerate for the player when the player is at home base. |
-| FR2 | The system shall have ammo regenerate for the player when the player is at home base. |
-| FR3 | The system shall have health decrease when they are hit by a missile. |
-| FR4 | The system shall have ammo deplete when the player shoots. |
-| FR5 | The system shall have the player spawn with ammo. |
+| FR21 | The system shall have health regenerate for the player when the player is at home base. |
+| FR22 | The system shall have ammo regenerate for the player when the player is at home base. |
+| FR23 | The system shall have health decrease when they are hit by a missile. |
+| FR24 | The system shall have ammo deplete when the player shoots. |
+| FR25 | The system shall have the player spawn with ammo. |
 
 
 ## Non-Functional Requirements
@@ -71,40 +71,40 @@ Player Movement, Bullet Logic, Enemy Logic, and Health and Ammo.
 ### Player Movement
 | ID | Requirement |
 | :-------------: | :----------: |
-| NFR1 | The system shall add a force of 5 units to the right when the player presses the “D” key. |
-| NFR2 | The system shall add a force of 5 units to the left when the player presses the “A” key. |
-| NFR3 | The system shall add a force of 5 units upwards when the player presses the “W” key. |
-| NFR4 | The system shall add a force of 5 units downwards when the player presses the “S” key. |
-| NFR5 | The system shall rotate the player’s tank barrel counterclockwise with a speed of 100 units when the player moves their mouse to relative north of the player’s tank barrel. |
+| NFR6 | The system shall add a force of 5 units to the right when the player presses the “D” key. |
+| NFR7 | The system shall add a force of 5 units to the left when the player presses the “A” key. |
+| NFR8 | The system shall add a force of 5 units upwards when the player presses the “W” key. |
+| NFR9 | The system shall add a force of 5 units downwards when the player presses the “S” key. |
+| NFR10 | The system shall rotate the player’s tank barrel counterclockwise with a speed of 100 units when the player moves their mouse to relative north of the player’s tank barrel. |
 
 ### Bullet Logic
 | ID | Requirement |
 | :-------------: | :----------: |
-| NFR1 | The system shall spawn a missile instantly when the player clicks, while in game. |
-| NFR2 | The system shall have a bullet's rigid body be removed instantly upon collision detection. |
-| NFR3 | The system shall have a missile’s bullet damage worth 25 units. |
-| NFR4 | The system shall have a beam's bullet damage worth 15 units. |
-| NFR5 | The system shall have a bullet be destroyed after 5 seconds have elapsed since being spawned. |
+| NFR11 | The system shall spawn a missile instantly when the player clicks, while in game. |
+| NFR12 | The system shall have a bullet's rigid body be removed instantly upon collision detection. |
+| NFR13 | The system shall have a missile’s bullet damage worth 25 units. |
+| NFR14 | The system shall have a beam's bullet damage worth 15 units. |
+| NFR15 | The system shall have a bullet be destroyed after 5 seconds have elapsed since being spawned. |
 
 ### Enemy Logic
 | ID | Requirement |
 | :-------------: | :----------: |
-| NFR1 | The system shall have guard enemies that have a range of 1000 units chasing range to start chasing the player in the Defensive game mode. |
-| NFR2 | The system shall have guard enemies that have a range of 15 units chasing range to start chasing the player in the Offensive game mode. |
-| NFR3 | The system shall have guard enemies with a max speed of 2 units. |
-| NFR4 | The system shall have all enemies start aiming at the player when the player is within 30 units. |
-| NFR5 | The system shall have all enemies start shooting at the player when the player is within 12 units. |
+| NFR16 | The system shall have guard enemies that have a range of 1000 units chasing range to start chasing the player in the Defensive game mode. |
+| NFR17 | The system shall have guard enemies that have a range of 15 units chasing range to start chasing the player in the Offensive game mode. |
+| NFR18 | The system shall have guard enemies with a max speed of 2 units. |
+| NFR19 | The system shall have all enemies start aiming at the player when the player is within 30 units. |
+| NFR20 | The system shall have all enemies start shooting at the player when the player is within 12 units. |
 
 | ID | Requirement |
 | :-------------: | :----------: |
-| NFR1 | The system shall have health regenerate at a rate of 1 every 0.20 seconds when the player is at home base. |
-| NFR2 | The system shall have ammo regenerate at a rate of 1 every 0.20 seconds when the player is at home base. |
-| NFR3 | The system shall have health decrease by 25 when they is hit by a missile. |
-| NFR4 | The system shall have ammo deplete by 1 when the player shoots. |
-| NFR5 | The system shall have the player spawn 45 rounds of ammo. |
+| NFR21 | The system shall have health regenerate at a rate of 1 every 0.20 seconds when the player is at home base. |
+| NFR22 | The system shall have ammo regenerate at a rate of 1 every 0.20 seconds when the player is at home base. |
+| NFR23 | The system shall have health decrease by 25 when they is hit by a missile. |
+| NFR24 | The system shall have ammo deplete by 1 when the player shoots. |
+| NFR25 | The system shall have the player spawn 45 rounds of ammo. |
 
 
-# Change management plan
+# Change Management Plan
 This section describes how the system has thus far been tested, how to install the software and operate the software, and then how to report any bugs.
 
 The 2D Tank Game has been thoroughly tested by multiple parties. The game was sent to several individuals, each with unique experience in both software, 
@@ -117,3 +117,32 @@ in the Main Menu and see how to operate the player's tank while in the game.
 
 All bugs and enhancement requests should be submitted on the repository in the form of an issue with the "Bug" or 'Enhancement" tag. The dev team will
 immediately be notified and will notify the user when the issue is resolved.
+
+
+# Traceability Links
+This section links together the use case diagrams, class diagrams, and activity diagrams with their respective requirement.
+
+## Use Case Diagram Traceability
+| Artifact ID | Artifact Name | Requirement ID |
+| :-------------: | :----------: | :----------: |
+| UseCase1 | Move Player | FR5 |
+
+## Class Diagram Traceability
+| Artifact ID | Artifact Name | Requirement ID |
+| :-------------: | :-------------: | :----------: |
+| 3 | PlayerLogic | FR6, FR7, FR8, FR9, FR10, NFR6, NFR7, NFR8, NFR9, NFR10 |
+
+## Activity Diagram Traceability
+| Artifact ID | Artifact Name | Requirement ID |
+| :-------------: | :----------: | :----------: |
+| <filename> | Handle Player Input | FR1-5, NFR2 |
+
+
+# Software Artifacts
+This sections holds the direct URL links to the artifacts referenced in the traceability section.
+* [use case 1 link](name.pdf)
+* [use case 2 link](name.pdf)
+* [https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Class%20Diagram%20-%20Entity%20Interactions.png](Class Diagram - Entity Interactions.png)
+* [https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Activity%20Diagram%20-%20Entity%20Interactions.png](Activity Diagram - Entity Interactions.png)
+* [https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Activity%20Diagram%20-%20Main%20Menu.png](Activity Diagram - Main Menu.png)
+
