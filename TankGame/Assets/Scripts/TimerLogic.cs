@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Constants.Names;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -31,7 +32,8 @@ namespace Assets.Scripts
         private void DestroyIfExpired()
         {
             if (IsExpired())
-            {
+{
+                Instantiate(GameObject.Find(ObjectNames.Explosion), gameObject.transform.position, new Quaternion()).GetComponent<ExplosionLogic>().Init(false, true);
                 Destroy(gameObject);
             }
         }

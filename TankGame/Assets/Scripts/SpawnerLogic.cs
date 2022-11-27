@@ -12,15 +12,15 @@ public class SpawnerLogic : MonoBehaviour
     private bool RespawnAllowed;
     private GameObject CurrentObject;
     private System.DateTime LastAliveTime;
-    
-    // Start is called before the first frame update
+
+    private const int MinRespawnTimer = 10;
+
     void Start()
     {
         SetRespawnAllowed();
         SpawnItem();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (CurrentObject != null)
@@ -29,6 +29,11 @@ public class SpawnerLogic : MonoBehaviour
         }
         else if (CurrentObject == null && RespawnAllowed && LastAliveTime.AddSeconds(RespawnTimer) <= System.DateTime.Now)
         {
+            if (RespawnTimer > MinRespawnTimer)
+            {
+                RespawnTimer -= 2;
+            }
+
             SpawnItem();
         }
     }

@@ -16,6 +16,7 @@ public class EntityCollisionLogic : MonoBehaviour
     private bool wasDeathAnimationRan = false;
     private int EntityHealth;
     private GameModeObjectives GameModeObjectives;
+    private DefenseKillCount DefenseKillCount;
 
     private readonly List<EntityType> TakesDamage = new List<EntityType>() { EntityType.Guard, EntityType.Turret, EntityType.Player, EntityType.ObjectiveHouse, EntityType.ObjectivePrototype, EntityType.ObjectiveEnemy };
     private readonly List<EntityType> BulletTypes = new List<EntityType>() { EntityType.Beam, EntityType.Missile };
@@ -24,6 +25,7 @@ public class EntityCollisionLogic : MonoBehaviour
     {
         BoxCollider2D currentCollider = gameObject.GetComponent<BoxCollider2D>();
         GameModeObjectives = GameObject.Find(ObjectNames.GameLogic).GetComponent<GameModeSetup>().GameModeObjectives;
+        DefenseKillCount = GameObject.Find(ObjectNames.GameLogic).GetComponent<GameModeSetup>().DefenseKillCount;
         EntityHealth = HealthHelper.GetMaxHealth(EntityType);
 
         // Setup to let items pass through walls
@@ -88,15 +90,24 @@ public class EntityCollisionLogic : MonoBehaviour
                 }
                 else
                 {
-                    Instantiate(GameObject.Find(ObjectNames.Explosion), gameObject.transform.position, new Quaternion()).GetComponent<ExplosionLogic>().Init(true);
-                    Destroy(gameObject);
+                    OnDeath();
                 }
             }
             else
             {
-                Instantiate(GameObject.Find(ObjectNames.Explosion), gameObject.transform.position, new Quaternion()).GetComponent<ExplosionLogic>().Init(true);
-                Destroy(gameObject);
+                OnDeath();
             }
         }
+    }
+
+    private void OnDeath()
+    {
+        if (DefenseKillCount != null)
+        {
+            DefenseKillCount.AddKill(EntityType);
+        }
+
+        Instantiate(GameObject.Find(ObjectNames.Explosion), gameObject.transform.position, new Quaternion()).GetComponent<ExplosionLogic>().Init(true);
+        Destroy(gameObject);
     }
 }

@@ -6,7 +6,7 @@ namespace Assets.Scripts.Player
 {
     public class PlayerCamera : MonoBehaviour
     {
-        public float cameraHeight = 15f;
+        private const int cameraHeight = 20;
 
         private PlayerLogic Player;
 

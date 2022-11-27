@@ -8,8 +8,10 @@ namespace Assets.Scripts
         private Animator Animator;
         private bool WasInit = false;
         private bool CanPlay = true;
+        private bool IsDistantVolume = false;
 
         private const int Speed = 4;
+        private const float DistantVolume = 0.2f;
         private const string PlayAnimation = "Explosion";
 
         void Start()
@@ -23,6 +25,11 @@ namespace Assets.Scripts
         {
             if (WasInit && CanPlay)
             {
+                if (IsDistantVolume)
+                {
+                    AudioSource.volume = DistantVolume;
+                }
+
                 AudioSource.Play();
                 Animator.Play(PlayAnimation);
                 CanPlay = false;
@@ -34,9 +41,10 @@ namespace Assets.Scripts
             }
         }
 
-        public void Init(bool objectDestroyed = false)
+        public void Init(bool objectDestroyed = false, bool isDespawn = false)
         {
             WasInit = true;
+            IsDistantVolume = isDespawn;
             
             if (objectDestroyed)
             {
