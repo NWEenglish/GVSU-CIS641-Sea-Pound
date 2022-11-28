@@ -123,46 +123,52 @@ immediately be notified and will notify the user when the issue is resolved.
 # Traceability Links
 This section links together the use case diagrams, class diagrams, and activity diagrams with their respective requirement.
 
+## Use Case Description Traceability
+| Artifact ID | Artifact Name | Requirement ID |
+| :-------------: | :----------: | :----------: |
+| 1 | Start Game | FR4-5, NFR4-5 |
+
 ## Use Case Diagram Traceability
 | Artifact ID | Artifact Name | Requirement ID |
 | :-------------: | :----------: | :----------: |
-| 1 | Move Entity | FR6-9, NFR6-9 |
-| 1 | Shoot Rockets | FR11, FR24, NFR11, NFR24 |
-| 1 | Be Destroyed | FR13, FR15 |
-| 2 | Start Game | FR4, NFR4 |
-| 2 | Start Defensive Game | FR5, NFR5 |
-| 2 | View Controls | FR3, NFR3 |
-| 2 | View Credits | FR2, NFR2 |
-| 2 | Exit Game | FR1, NFR1 |
+| 2 | Move Entity | FR6-9, NFR6-9 |
+| 2 | Shoot Rockets | FR11, FR24, NFR11, NFR24 |
+| 2 | Be Destroyed | FR13, FR15 |
+| 3 | Start Game | FR4, NFR4 |
+| 3 | Start Defensive Game | FR5, NFR5 |
+| 3 | View Controls | FR3, NFR3 |
+| 3 | View Credits | FR2, NFR2 |
+| 3 | Exit Game | FR1, NFR1 |
 
 ## Class Diagram Traceability
 | Artifact ID | Artifact Name | Requirement ID |
 | :-------------: | :-------------: | :----------: |
-| 3 | PlayerLogic | FR6-10, NFR6-10|
-| 3 | EnemyShootingLogic | FR19-20, NFR19-20 |
+| 4 | PlayerLogic | FR6-10, NFR6-10|
+| 4 | EnemyShootingLogic | FR19-20, NFR19-20 |
 
 ## Activity Diagram Traceability
 | Artifact ID | Artifact Name | Requirement ID |
 | :-------------: | :----------: | :----------: |
-| 4 | Wait for Entity Input | FR6-9, FR19-20, NFR6-9, NFR19-20 |
-| 4 | Move Entity | FR6-9, NFR6-9 |
-| 4 | Rotate Entity | FR10, NFR10 |
-| 4 | Shoot Projectile | FR11, FR24, NFR11, NFR24 |
-| 4 | Reduce Health | NFR13-14 |
-| 4 | Destroy Entity | FR13, FR15 |
-| 5 | Exit Game | FR1, NFR1 |
-| 5 | View Credits | FR2, NFR2 |
-| 5 | View Controls | FR3, NFR3 |
-| 5 | Display Game Modes | FR4, NFR4 |
-| 5 | Load Defense Game | FR5, NFR5 |
+| 5 | Wait for Entity Input | FR6-9, FR19-20, NFR6-9, NFR19-20 |
+| 5 | Move Entity | FR6-9, NFR6-9 |
+| 5 | Rotate Entity | FR10, NFR10 |
+| 5 | Shoot Projectile | FR11, FR24, NFR11, NFR24 |
+| 5 | Reduce Health | NFR13-14 |
+| 5 | Destroy Entity | FR13, FR15 |
+| 6 | Exit Game | FR1, NFR1 |
+| 6 | View Credits | FR2, NFR2 |
+| 6 | View Controls | FR3, NFR3 |
+| 6 | Display Game Modes | FR4, NFR4 |
+| 6 | Load Defense Game | FR5, NFR5 |
 
 
 # Software Artifacts
 This section holds the direct URL links to the artifacts referenced in the traceability section.
 | Artifact ID | Link |
 | :-------------: | :----------: |
-| 1 | [Use Case Diagram - Entity Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/038a41946d6a7083e1bf0710e3ea24d58675fd82/artifacts/Use%20Case%20Diagram%20-%20Entity%20Interactions.png) |
-| 2 |  [Use Case Diagram - Main Menu Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/038a41946d6a7083e1bf0710e3ea24d58675fd82/artifacts/Use%20Case%20Diagram%20-%20Main%20Menu%20Interactions.png) |
-| 3 | [Class Diagram - Entity Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Class%20Diagram%20-%20Entity%20Interactions.png) |
-| 4 | [Activity Diagram - Entity Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Activity%20Diagram%20-%20Entity%20Interactions.png) |
-| 5 | [Activity Diagram - Main Menu](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Activity%20Diagram%20-%20Main%20Menu.png) |
+| 1 | [Use Case Description - Start Game](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Use%20Case%20Description%20-%20Start%20Game.pdf)
+| 2 | [Use Case Diagram - Entity Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/038a41946d6a7083e1bf0710e3ea24d58675fd82/artifacts/Use%20Case%20Diagram%20-%20Entity%20Interactions.png) |
+| 3 | [Use Case Diagram - Main Menu Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/038a41946d6a7083e1bf0710e3ea24d58675fd82/artifacts/Use%20Case%20Diagram%20-%20Main%20Menu%20Interactions.png) |
+| 4 | [Class Diagram - Entity Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Class%20Diagram%20-%20Entity%20Interactions.png) |
+| 5 | [Activity Diagram - Entity Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Activity%20Diagram%20-%20Entity%20Interactions.png) |
+| 6 | [Activity Diagram - Main Menu](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Activity%20Diagram%20-%20Main%20Menu.png) |
