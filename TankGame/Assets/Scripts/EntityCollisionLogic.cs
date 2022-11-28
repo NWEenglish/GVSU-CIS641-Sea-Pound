@@ -58,6 +58,7 @@ public class EntityCollisionLogic : MonoBehaviour
             gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
             Destroy(gameObject.GetComponent<BoxCollider2D>());
             Destroy(gameObject.GetComponent<Rigidbody2D>());
+            Destroy(gameObject.GetComponent<TimerLogic>());
             Instantiate(GameObject.Find(ObjectNames.Explosion), position, new Quaternion()).GetComponent<ExplosionLogic>().Init(false);
         }
         catch (System.Exception e)
