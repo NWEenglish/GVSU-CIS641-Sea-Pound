@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Assets.Scripts.Helpers;
+﻿using Assets.Scripts.Helpers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,7 +29,7 @@ namespace Assets.Scripts.MenuActions
 
         void Update()
         {
-            if (Input.GetMouseButtonDown(0) && isCreditScreenVisible)
+            if (Input.GetKeyDown(KeyCode.Escape) && isCreditScreenVisible)
             {
 				UpdateCreditScreenVisible(false);
             }

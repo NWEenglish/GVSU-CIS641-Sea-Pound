@@ -1,87 +1,96 @@
 using Assets.Scripts.Helpers;
-using Assets.Scripts.Names;
+using Assets.Scripts.Constants.Names;
+using Assets.Scripts.Constants.Types;
 using UnityEngine;
+using Assets.Scripts.GeneralGameLogic;
 
 namespace Assets.Scripts.Enemy
 {
     public class EnemyMovementLogic : MonoBehaviour
     {
-        public const float StartChaseRange = 15f;
-        public const float StopChaseRange = 10f;
-        public const float MaxSpeed = 2f;
+        
+        private float StartChaseRange = 15f;
+        private const float StopChaseRange = 10f;
+        private const float MaxSpeed = 2f;
+        private const float AudioRange = 20f;
 
-        public const float AudioRange = 20f;
-
-        public GameObject Player;
-        public EntityType EnemyType;
-
+        private EntityType Type;
+        private Vector2 Movement;        
         private Rigidbody2D Body;
-        private AudioSource audioSource_Idle;
-        private AudioSource audioSource_Moving;
+        private GameObject Player;
+        private AudioHelper AudioHelper;
 
-        // Start is called before the first frame update
         void Start()
         {
+            if (GameObject.Find(ObjectNames.GameLogic).GetComponent<GameModeSetup>().GameMode == GameModeType.Defensive)
+            {
+                StartChaseRange = 1000f;
+            }
+
             Body = gameObject.GetComponent<Rigidbody2D>();
+            Player = GameObject.Find(ObjectNames.Player);
+            Type = gameObject.GetComponent<EntityCollisionLogic>().EntityType;
 
-            // Setup Audio Objects
-            var audioSources = gameObject.GetComponents<AudioSource>();
-            audioSource_Idle = audioSources[0];
-            audioSource_Moving = audioSources[1];
-
-            audioSource_Moving.loop = true;
-            audioSource_Moving.Play();
-            audioSource_Moving.volume = 0.2f;
-
-            audioSource_Idle.loop = true;
-            audioSource_Idle.Play();
-            audioSource_Idle.volume = 0.1f;
+            AudioSource[] audioSources = gameObject.GetComponents<AudioSource>();
+            AudioHelper = new AudioHelper(audioSources[0], audioSources[1], 0.2f);
         }
 
         void FixedUpdate()
         {
-            if (Player == null)
+            Vector2? target = GetTarget(Player);
+
+            if (target != null)
             {
-                return;
-            }
-
-            // Target Player
-            Vector3 playerPosition = Player.transform.position;
-            Vector3 currentPosition = Body.transform.position;
-            Vector2 target = new Vector2(playerPosition.x - currentPosition.x, playerPosition.y - currentPosition.y);
-
-            if (EnemyType == EntityType.Guard)
-            {
-                // Move towards player
-                if (target.magnitude <= StartChaseRange && target.magnitude >= StopChaseRange)
-                {
-                    // Movement Logic
-                    MovementHelper.Move(ref Body, target.x, target.y, MaxSpeed);
-                    MovementHelper.Rotate(ref Body, target, -90f);
-
-                    // Audio Logic
-                    audioSource_Idle.mute = true;
-                    audioSource_Moving.mute = false;
-                }
-                else
-                {
-                    // Movement Logic
-                    MovementHelper.Move(ref Body, 0, 0, 3f);
-
-                    // Audio Logic
-                    audioSource_Idle.mute = false;
-                    audioSource_Moving.mute = true;
-                }
-            }
-
-            if (target.magnitude > AudioRange)
-            {
-                audioSource_Idle.mute = true;
-                audioSource_Moving.mute = true;
+                UpdateMovement(target.Value);
+                UpdateAudio(target.Value);
             }
         }
 
-        // Update is called once per frame
-        void Update() { }
+        private Vector2? GetTarget(GameObject target)
+        {
+            if (target == null)
+            {
+                return null;
+            }
+
+            Vector3 targetPosition = target.transform.position;
+            Vector3 currentPosition = Body.transform.position;
+
+            return new Vector2(targetPosition.x - currentPosition.x, targetPosition.y - currentPosition.y);
+        }
+
+        private void UpdateMovement(Vector2 target)
+        {
+            if (Type == EntityType.Guard || Type == EntityType.ObjectiveEnemy)
+            {
+                // Movement Logic - Move towards target or stop movement
+                if (target.magnitude <= StartChaseRange && target.magnitude >= StopChaseRange)
+                {
+                    Movement = MovementHelper.Move(ref Body, target.x, target.y, MaxSpeed);
+                    MovementHelper.Rotate(ref Body, target, -90f);
+                }
+                else
+                {
+                    Movement = MovementHelper.Move(ref Body, 0, 0, 3f);
+                }
+            }
+
+            if (MovementHelper.IsOutOfBounds(gameObject))
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private void UpdateAudio(Vector2 target)
+        {
+            if (target.magnitude > AudioRange)
+            {
+                AudioHelper.MuteAudio();
+            }
+            else
+            {
+                AudioHelper.PlayAudio(Movement);
+            }
+        }
     }
 }
