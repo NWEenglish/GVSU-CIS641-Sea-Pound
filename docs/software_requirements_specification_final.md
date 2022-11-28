@@ -159,8 +159,10 @@ This section links together the use case diagrams, class diagrams, and activity 
 
 # Software Artifacts
 This section holds the direct URL links to the artifacts referenced in the traceability section.
-1.  [Use Case Diagram - Entity Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/038a41946d6a7083e1bf0710e3ea24d58675fd82/artifacts/Use%20Case%20Diagram%20-%20Entity%20Interactions.png)
-2.  [Use Case Diagram - Main Menu Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/038a41946d6a7083e1bf0710e3ea24d58675fd82/artifacts/Use%20Case%20Diagram%20-%20Main%20Menu%20Interactions.png)
-3.  [Class Diagram - Entity Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Class%20Diagram%20-%20Entity%20Interactions.png)
-4.  [Activity Diagram - Entity Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Activity%20Diagram%20-%20Entity%20Interactions.png)
-5.  [Activity Diagram - Main Menu](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Activity%20Diagram%20-%20Main%20Menu.png)
+| Artifact ID | Link |
+| :-------------: | :----------: |
+| 1 | [Use Case Diagram - Entity Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/038a41946d6a7083e1bf0710e3ea24d58675fd82/artifacts/Use%20Case%20Diagram%20-%20Entity%20Interactions.png) |
+| 2 |  [Use Case Diagram - Main Menu Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/038a41946d6a7083e1bf0710e3ea24d58675fd82/artifacts/Use%20Case%20Diagram%20-%20Main%20Menu%20Interactions.png) |
+| 3 | [Class Diagram - Entity Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Class%20Diagram%20-%20Entity%20Interactions.png) |
+| 4 | [Activity Diagram - Entity Interactions](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Activity%20Diagram%20-%20Entity%20Interactions.png) |
+| 5 | [Activity Diagram - Main Menu](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/b56f23a824c525f88e9ba8a3a8472fd0fc7dae5b/artifacts/Activity%20Diagram%20-%20Main%20Menu.png) |
