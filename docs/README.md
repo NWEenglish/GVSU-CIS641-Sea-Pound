@@ -17,3 +17,6 @@ to the content creators.
 # Project Documents
 * [Project Proposal](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/master/docs/proposal-template.md)
 * [Software Requirements Specifications](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/master/docs/software_requirements_specification.md)
+* [Midterm Presentation](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/master/docs/Nicholas%20English%20-%20Midterm%20Presentation.pdf)
+* [Final Software Requirements Specifications](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/master/docs/software_requirements_specification_final.md)
+* [Final Game](https://github.com/NWEenglish/GVSU-CIS641-Sea-Pound/blob/master/TankGame.zip)
