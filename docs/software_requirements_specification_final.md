@@ -52,7 +52,7 @@ Player Movement, Bullet Logic, Enemy Logic, and Health and Ammo.
 | :-------------: | :----------: |
 | FR21 | The system shall have health regenerate for the player when the player is at home base. |
 | FR22 | The system shall have ammo regenerate for the player when the player is at home base. |
-| FR23 | The system shall have health decrease when they are hit by a missile. |
+| FR23 | The system shall have health decrease when the player is hit by a missile. |
 | FR24 | The system shall have ammo deplete when the player shoots. |
 | FR25 | The system shall have the player spawn with ammo. |
 
@@ -127,24 +127,27 @@ This section links together the use case diagrams, class diagrams, and activity 
 | Artifact ID | Artifact Name | Requirement ID |
 | :-------------: | :----------: | :----------: |
 | 1 | Start Game | FR4-5, NFR4-5 |
+| TBD | TBD | FR1-3, FR6-25, NFR1-3, NFR6-25 |
 
 ## Use Case Diagram Traceability
 | Artifact ID | Artifact Name | Requirement ID |
 | :-------------: | :----------: | :----------: |
 | 2 | Move Entity | FR6-9, NFR6-9 |
-| 2 | Shoot Rockets | FR11, FR24, NFR11, NFR24 |
+| 2 | Shoot Rockets | FR24, NFR11, NFR24 |
 | 2 | Be Destroyed | FR13, FR15 |
 | 3 | Start Game | FR4, NFR4 |
 | 3 | Start Defensive Game | FR5, NFR5 |
 | 3 | View Controls | FR3, NFR3 |
 | 3 | View Credits | FR2, NFR2 |
 | 3 | Exit Game | FR1, NFR1 |
+| TBD | TBD | FR10-12, FR14, FR16-23, FR25, NFR10, NFR12-23, NFR25 |
 
 ## Class Diagram Traceability
 | Artifact ID | Artifact Name | Requirement ID |
 | :-------------: | :-------------: | :----------: |
 | 4 | PlayerLogic | FR6-10, NFR6-10|
 | 4 | EnemyShootingLogic | FR19-20, NFR19-20 |
+| TBD | TBD | FR1-5, FR11-18, FR21-25, NFR1-5, NFR11-18, NFR21-25 |
 
 ## Activity Diagram Traceability
 | Artifact ID | Artifact Name | Requirement ID |
@@ -152,14 +155,15 @@ This section links together the use case diagrams, class diagrams, and activity 
 | 5 | Wait for Entity Input | FR6-9, FR19-20, NFR6-9, NFR19-20 |
 | 5 | Move Entity | FR6-9, NFR6-9 |
 | 5 | Rotate Entity | FR10, NFR10 |
-| 5 | Shoot Projectile | FR11, FR24, NFR11, NFR24 |
-| 5 | Reduce Health | NFR13-14 |
+| 5 | Shoot Projectile | FR24, NFR11, NFR24 |
+| 5 | Reduce Health | FR23, NFR13-14 |
 | 5 | Destroy Entity | FR13, FR15 |
 | 6 | Exit Game | FR1, NFR1 |
 | 6 | View Credits | FR2, NFR2 |
 | 6 | View Controls | FR3, NFR3 |
 | 6 | Display Game Modes | FR4, NFR4 |
 | 6 | Load Defense Game | FR5, NFR5 |
+| TBD | TBD | FR11-12, FR14, FR16-18, FR21-22, FR25, NFR12, NFR15-18, NFR21-23, NFR25 |
 
 
 # Software Artifacts
