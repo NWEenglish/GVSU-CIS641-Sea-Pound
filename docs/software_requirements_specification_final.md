@@ -52,7 +52,7 @@ Player Movement, Bullet Logic, Enemy Logic, and Health and Ammo.
 | :-------------: | :----------: |
 | FR21 | The system shall have health regenerate for the player when the player is at home base. |
 | FR22 | The system shall have ammo regenerate for the player when the player is at home base. |
-| FR23 | The system shall have health decrease when they are hit by a missile. |
+| FR23 | The system shall have health decrease when the player is hit by a missile. |
 | FR24 | The system shall have ammo deplete when the player shoots. |
 | FR25 | The system shall have the player spawn with ammo. |
 
@@ -106,45 +106,46 @@ Player Movement, Bullet Logic, Enemy Logic, and Health and Ammo.
 
 
 # Change Management Plan
-This section describes how the system has thus far been tested, how to install the software and operate the software, and then how to report any bugs.
+This section describes the benefits of implementing this new piece of software.
 
-The 2D Tank Game has been thoroughly tested by multiple parties. The game was sent to several individuals, each with unique experience in both software, 
-gaming, and testing. Beta testers found minimal bugs, minimal items of confusion, and minimal enhancement requests. After completing those tasks, beta testers reported
-no further causes of concern.
+The application is very easy to use right away. All that is required is to download the folder, unzip the folder, and then run the executable.
+The game was created using the Unity Game Engine and C#, which means internal teams are already familiar with the software and maintaining will not be an issue.
+Additionally, the program provides a "Controls" section on the main menu, and this will provide the user with all the information required to begin using the application.
 
-The software can be installed by visiting the repository and downloading TankGame.zip. From there, unzip the file and place it in your desired folder.
-The game can then be launched by opening that folder and running the executable file. While running the program, the user can open the Controls section
-in the Main Menu and see how to operate the player's tank while in the game.
+Management will not need to worry about any downtime during the changeover because the application has already gone through extensive beta testing. Therefore, 
+the software will deploy via parallel conversion; we'll begin rolling out on 12/1/2022 and will have a hard deadline to transition on 12/14/2022.
 
-All bugs and enhancement requests should be submitted on the repository in the form of an issue with the "Bug" or 'Enhancement" tag. The dev team will
-immediately be notified and will notify the user when the issue is resolved.
+All bugs that are discovered should be submitted via a GitHub issue. The team will review and complete all issues submitted, with a goal of resolution within 24 hours.
 
 
 # Traceability Links
-This section links together the use case diagrams, class diagrams, and activity diagrams with their respective requirement.
+This section links together the use case descriptions, use case diagrams, class diagrams, and activity diagrams with their respective requirements.
 
 ## Use Case Description Traceability
 | Artifact ID | Artifact Name | Requirement ID |
 | :-------------: | :----------: | :----------: |
 | 1 | Start Game | FR4-5, NFR4-5 |
+| TBD | TBD | FR1-3, FR6-25, NFR1-3, NFR6-25 |
 
 ## Use Case Diagram Traceability
 | Artifact ID | Artifact Name | Requirement ID |
 | :-------------: | :----------: | :----------: |
 | 2 | Move Entity | FR6-9, NFR6-9 |
-| 2 | Shoot Rockets | FR11, FR24, NFR11, NFR24 |
+| 2 | Shoot Rockets | FR24, NFR11, NFR24 |
 | 2 | Be Destroyed | FR13, FR15 |
 | 3 | Start Game | FR4, NFR4 |
 | 3 | Start Defensive Game | FR5, NFR5 |
 | 3 | View Controls | FR3, NFR3 |
 | 3 | View Credits | FR2, NFR2 |
 | 3 | Exit Game | FR1, NFR1 |
+| TBD | TBD | FR10-12, FR14, FR16-23, FR25, NFR10, NFR12-23, NFR25 |
 
 ## Class Diagram Traceability
 | Artifact ID | Artifact Name | Requirement ID |
 | :-------------: | :-------------: | :----------: |
 | 4 | PlayerLogic | FR6-10, NFR6-10|
 | 4 | EnemyShootingLogic | FR19-20, NFR19-20 |
+| TBD | TBD | FR1-5, FR11-18, FR21-25, NFR1-5, NFR11-18, NFR21-25 |
 
 ## Activity Diagram Traceability
 | Artifact ID | Artifact Name | Requirement ID |
@@ -152,14 +153,15 @@ This section links together the use case diagrams, class diagrams, and activity 
 | 5 | Wait for Entity Input | FR6-9, FR19-20, NFR6-9, NFR19-20 |
 | 5 | Move Entity | FR6-9, NFR6-9 |
 | 5 | Rotate Entity | FR10, NFR10 |
-| 5 | Shoot Projectile | FR11, FR24, NFR11, NFR24 |
-| 5 | Reduce Health | NFR13-14 |
+| 5 | Shoot Projectile | FR24, NFR11, NFR24 |
+| 5 | Reduce Health | FR23, NFR13-14 |
 | 5 | Destroy Entity | FR13, FR15 |
 | 6 | Exit Game | FR1, NFR1 |
 | 6 | View Credits | FR2, NFR2 |
 | 6 | View Controls | FR3, NFR3 |
 | 6 | Display Game Modes | FR4, NFR4 |
 | 6 | Load Defense Game | FR5, NFR5 |
+| TBD | TBD | FR11-12, FR14, FR16-18, FR21-22, FR25, NFR12, NFR15-18, NFR21-23, NFR25 |
 
 
 # Software Artifacts
